@@ -15,11 +15,13 @@ public class Aviao {
     private String nome;
     private int n_assentos;
 
-    public Aviao() {
+    public Aviao(String nome, int n_assentos) {
+        this.nome = nome;
+        this.n_assentos = n_assentos;
     }
     
     public static int getCODIGO() {
-        return CODIGO;
+        return CODIGO++;
     }
 
     public static void setCODIGO(int CODIGO) {

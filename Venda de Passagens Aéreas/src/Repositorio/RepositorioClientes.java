@@ -28,4 +28,23 @@ public class RepositorioClientes {
     public List<Cliente> getListaClientes(){
         return clientes;
     }
+    
+    public boolean clienteExiste(String rg) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getRg().equals(rg)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Cliente buscarPaciente(String rg) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getRg().equals(rg)) {
+                return cliente;
+           }
+        }
+        return null;
+    }
+    
 }

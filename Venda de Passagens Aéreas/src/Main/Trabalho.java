@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Main;
+import View.MainUI;
 
 /**
  *
@@ -11,6 +12,6 @@ package Main;
  */
 public class Trabalho {
     public static void main(String[] args) {
-    //    new MainUI().executar();
+        new MainUI().executar();
     }
 }
