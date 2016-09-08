@@ -27,6 +27,7 @@ public class ClientesUI {
         do {
             System.out.println(ClientesMenu.getOpcoes());
             opcao = Console.scanInt("Digite sua opção:");
+            // --TODO-- validacao
             switch (opcao) {
                 case ClientesMenu.OP_CADASTRAR:
                     cadastrarCliente();
@@ -46,11 +47,14 @@ public class ClientesUI {
     
     public void cadastrarCliente() {
         String rg = Console.scanString("RG: ");
+        // --TODO-- validacao
         if (lista.clienteExiste(rg)) {
             System.out.println("RG já existente no cadastro");
         } else {
             String nome = Console.scanString("Nome: ");
+            // --TODO-- validacao
             String telefone = Console.scanString("Telefone: ");
+            // --TODO-- validacao
             lista.addCliente(new Cliente(nome, rg, telefone));
             System.out.println("Cliente " + nome + " cadastrado com sucesso!");
         }
@@ -59,11 +63,11 @@ public class ClientesUI {
 
     public void mostrarClientes() {
         System.out.println("-----------------------------\n");
-        System.out.println(String.format("%-10s", "RG") + "\t"
+        System.out.println(String.format("%-20s", "RG") + "\t"
                 + String.format("%-20s", "|NOME") + "\t"
                 + String.format("%-20s", "|TELEFONE"));
         for (Cliente cliente : lista.getListaClientes()) {
-            System.out.println(String.format("%-10s", cliente.getRg()) + "\t"
+            System.out.println(String.format("%-20s", cliente.getRg()) + "\t"
                     + String.format("%-20s", "|" + cliente.getNome()) + "\t"
                     + String.format("%-20s", "|" + cliente.getTelefone()) + "\t");
         }

@@ -32,6 +32,7 @@ public class VoosUI {
         do {
         System.out.println(VoosMenu.getOpcoes());
             opcao = Console.scanInt("Digite sua opção:");
+            // --TODO-- validacao
             switch (opcao) {
                 case VoosMenu.OP_CADASTRAR:
                     cadastrarVoo(avioes);
@@ -51,11 +52,15 @@ public class VoosUI {
     
     public void cadastrarVoo(RepositorioAvioes avioes){
             String origem = Console.scanString("Origem: ");
+            // --TODO-- validacao
             String destino = Console.scanString("Destino: ");
+            // --TODO-- validacao
             String horarioStr = Console.scanString("Horario (dd/mm/yyyy hh:mm): ");
+            // --TODO-- validacao
             AvioesUI avioesUI = new AvioesUI(avioes);
             avioesUI.mostrarAvioes();
             int codAviao = Console.scanInt("Codigo do aviao: ");
+            // --TODO-- validacao
             Aviao aviao = avioes.getAviao(codAviao);
             Date horario = null;
             try {
@@ -71,18 +76,18 @@ public class VoosUI {
     
     public void mostrarVoos(){
         System.out.println("-----------------------------\n");
-        System.out.println(String.format("%-10s", "CODIGO") + "\t"
+        System.out.println(String.format("%-20s", "CODIGO") + "\t"
                 + String.format("%-20s", "|AVIAO") + "\t"
                 + String.format("%-20s", "|ORIGEM") + "\t"
                 + String.format("%-20s", "|DESTINO") + "\t"
                 + String.format("%-20s", "|HORARIO"));
         for (Voo voo : lista.getListaVoos()) {
-            System.out.println(String.format("%-10s", voo.getCodigo()) + "\t"
-                    // --TODO-- formatar aviao (pegar codigo)
-                + String.format("%-20s", "|" + voo.getAviao()) + "\t"
+            Aviao aviao = voo.getAviao();
+            System.out.println(String.format("%-20s", voo.getCodigo()) + "\t"
+                + String.format("%-20s", "|" + aviao.getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"
-                    // --TODO-- formatar hora
+                    // --TODO-- formatar hora?
                 + String.format("%-20s", "|" + voo.getHorario()) + "\t");
         }
     } 

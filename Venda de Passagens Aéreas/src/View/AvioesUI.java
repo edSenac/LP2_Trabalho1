@@ -27,6 +27,7 @@ public class AvioesUI {
         do {
         System.out.println(AvioesMenu.getOpcoes());
             opcao = Console.scanInt("Digite sua opção:");
+            // --TODO-- validar opcoes
             switch (opcao) {
                 case AvioesMenu.OP_CADASTRAR:
                     cadastrarAviao();
@@ -46,18 +47,20 @@ public class AvioesUI {
     
     public void cadastrarAviao(){
             String nome = Console.scanString("Nome: ");
+            // --TODO-- validacao
             int n_assentos = Console.scanInt("Numero de assentos: ");
+            // --TODO-- validacao
             lista.addAviao(new Aviao(nome, n_assentos));
             System.out.println("Aviao " + nome + " cadastrado com sucesso!");
     }
     
     public void mostrarAvioes(){
         System.out.println("-----------------------------\n");
-        System.out.println(String.format("%-10s", "CODIGO") + "\t"
+        System.out.println(String.format("%-20s", "CODIGO") + "\t"
                 + String.format("%-20s", "|NOME") + "\t"
                 + String.format("%-20s", "|NUMERO DE ASSENTOS"));
         for (Aviao aviao : lista.getListaAvioes()) {
-            System.out.println(String.format("%-10s", aviao.getCodigo()) + "\t"
+            System.out.println(String.format("%-20s", aviao.getCodigo()) + "\t"
                 + String.format("%-20s", "|" + aviao.getNome()) + "\t"
                 + String.format("%-20s", "|" + aviao.getN_assentos()) + "\t");
         }

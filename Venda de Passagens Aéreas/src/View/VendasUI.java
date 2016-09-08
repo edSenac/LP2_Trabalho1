@@ -32,12 +32,13 @@ public class VendasUI {
         do {
          System.out.println(VendasMenu.getOpcoes());
             opcao = Console.scanInt("Digite sua opção:");
+            // --TODO-- validacao
             switch (opcao) {
                 case VendasMenu.OP_CADASTRAR:
-                    //cadastrarVenda(voos, clientes);
+                    cadastrarVenda(voos, clientes);
                     break;
                 case VendasMenu.OP_LISTAR:
-                    //mostrarVendas();
+                    mostrarVendas();
                     break;
                 case VendasMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
@@ -51,28 +52,37 @@ public class VendasUI {
 
     public void cadastrarVenda(RepositorioVoos voos, RepositorioClientes clientes){
         // --TODO-- RESTRINGIR PELO NUMERO DE ASSENTOS NO VOO
-        
+        ClientesUI clientesUI = new ClientesUI(clientes);
+        clientesUI.mostrarClientes();
         String rg = Console.scanString("RG: ");
+        // --TODO-- validacao
         Cliente cliente = clientes.getCliente(rg);
+        // --TODO-- verificar se cliente existe
+        
+        VoosUI voosUI = new VoosUI(voos);
+        voosUI.mostrarVoos();
         int codigo = Console.scanInt("Codigo do Voo: ");
+        // --TODO-- validacao
         Voo voo = voos.getVoo(codigo);
+        // --TODO-- verificar se voo existe e se ha lugar
+        
         Date horario_compra = new Date();
-        
-        // IF numero de assentos < 0 vende, se nao ignora
-        
         lista.addVenda(new Venda(cliente, voo, horario_compra));
     }
     
     public void mostrarVendas(){
-        // --TODO--  AJUSTAR PARA VENDAS EM VEZ DE AVIAO
         System.out.println("-----------------------------\n");
-        System.out.println(String.format("%-10s", "CODIGO") + "\t"
-                + String.format("%-20s", "|NOME") + "\t"
-                + String.format("%-20s", "|NUMERO DE ASSENTOS"));
-        for (Aviao aviao : lista.getListaAvioes()) {
-            System.out.println(String.format("%-10s", aviao.getCODIGO()) + "\t"
-                + String.format("%-20s", "|" + aviao.getNome()) + "\t"
-                + String.format("%-20s", "|" + aviao.getN_assentos()) + "\t");
+        System.out.println(String.format("%-20s", "|NOME CLIENTE") + "\t"
+                + String.format("%-20s", "|ORIGEM VOO") + "\t"
+                + String.format("%-20s", "|DESTINO VOO") + "\t"
+                + String.format("%-20s", "|DATA-HORA COMPRA"));
+        for (Venda venda : lista.getListaVendas()) {
+            Voo voo = venda.getVoo();
+            Cliente cliente = venda.getCliente();
+            System.out.println(String.format("%-20s", cliente.getNome()) + "\t"
+                + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
+                + String.format("%-20s", "|" + voo.getDestino()) + "\t"
+                + String.format("%-20s", "|" + venda.getHorario_compra()) + "\t");
         }
     }
 }

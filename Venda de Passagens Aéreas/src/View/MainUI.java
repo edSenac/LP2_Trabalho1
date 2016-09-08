@@ -32,6 +32,7 @@ public class MainUI {
         do {
             System.out.println(MainMenu.getOpcoes());
             opcao = Console.scanInt("Digite sua opção:");
+            // --TODO-- validacao
             switch (opcao) {
                 case MainMenu.OP_CLIENTES:
                     new ClientesUI(listaClientes).executar();
@@ -44,6 +45,9 @@ public class MainUI {
                     break;
                 case MainMenu.OP_VENDAS:
                     new VendasUI(listaVendas).executar(listaVoos, listaClientes);
+                    break;
+                case MainMenu.OP_RELATORIOS:
+                    new RelatoriosUI(listaAvioes, listaClientes, listaVendas, listaVoos).executar();
                     break;
                 case MainMenu.OP_SAIR:
                     System.out.println("Aplicação finalizada!!!");
