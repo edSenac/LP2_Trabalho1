@@ -44,20 +44,20 @@ public class AvioesUI {
         } while (opcao != AvioesMenu.OP_VOLTAR);
     }
     
-    private void cadastrarAviao(){
+    public void cadastrarAviao(){
             String nome = Console.scanString("Nome: ");
             int n_assentos = Console.scanInt("Numero de assentos: ");
             lista.addAviao(new Aviao(nome, n_assentos));
             System.out.println("Aviao " + nome + " cadastrado com sucesso!");
     }
     
-    private void mostrarAvioes(){
+    public void mostrarAvioes(){
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-10s", "CODIGO") + "\t"
                 + String.format("%-20s", "|NOME") + "\t"
                 + String.format("%-20s", "|NUMERO DE ASSENTOS"));
         for (Aviao aviao : lista.getListaAvioes()) {
-            System.out.println(String.format("%-10s", aviao.getCODIGO()) + "\t"
+            System.out.println(String.format("%-10s", aviao.getCodigo()) + "\t"
                 + String.format("%-20s", "|" + aviao.getNome()) + "\t"
                 + String.format("%-20s", "|" + aviao.getN_assentos()) + "\t");
         }

@@ -13,14 +13,29 @@ import java.util.Date;
  */
 public class Voo {
     
+    private static int CODIGO = 1;
+    private int codigo;
     private String origem;
     private String destino;
     private Date horario;
     private Aviao aviao;
 
-    public Voo() {
+    public Voo(String origem, String destino, Date horario, Aviao aviao) {
+        this.codigo = getCODIGO();
+        this.origem = origem;
+        this.destino = destino;
+        this.horario = horario;
+        this.aviao = aviao;
     }
-
+    
+    public static int getCODIGO() {
+        return CODIGO++;
+    }
+    
+    public int getCodigo(){
+        return codigo;
+    }
+    
     public String getOrigem() {
         return origem;
     }

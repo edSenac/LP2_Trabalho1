@@ -40,10 +40,10 @@ public class MainUI {
                     new AvioesUI(listaAvioes).executar();
                     break;
                 case MainMenu.OP_VOOS:
-                    new VoosUI(listaVoos).executar();
+                    new VoosUI(listaVoos).executar(listaAvioes);
                     break;
                 case MainMenu.OP_VENDAS:
-                    new VendasUI(listaVendas).executar();
+                    new VendasUI(listaVendas).executar(listaVoos, listaClientes);
                     break;
                 case MainMenu.OP_SAIR:
                     System.out.println("Aplicação finalizada!!!");

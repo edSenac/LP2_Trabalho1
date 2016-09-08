@@ -28,4 +28,13 @@ public class RepositorioAvioes {
     public List<Aviao> getListaAvioes () {
         return avioes;
     }
+    
+    public Aviao getAviao(int codigo){
+        for (Aviao aviao : this.getListaAvioes()) {
+            if(codigo == aviao.getCodigo()){
+                return aviao;
+            }
+        }
+        return null;
+    }
 }

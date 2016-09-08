@@ -29,4 +29,12 @@ public class RepositorioVoos {
         return voos;
     }
 
+    public Voo getVoo(int codigo){
+        for (Voo voo : this.getListaVoos()) {
+            if(codigo == voo.getCodigo()){
+                return voo;
+            }
+        }
+        return null;
+    }
 }

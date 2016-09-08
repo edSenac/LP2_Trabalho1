@@ -12,20 +12,22 @@ package Model;
 public class Aviao {
     
     private static int CODIGO = 1;
+    private int codigo;
     private String nome;
     private int n_assentos;
 
     public Aviao(String nome, int n_assentos) {
         this.nome = nome;
         this.n_assentos = n_assentos;
+        this.codigo = getCODIGO();
     }
     
-    public static int getCODIGO() {
+    private static int getCODIGO() {
         return CODIGO++;
     }
-
-    public static void setCODIGO(int CODIGO) {
-        Aviao.CODIGO = CODIGO;
+    
+    public int getCodigo(){
+        return this.codigo;
     }
 
     public String getNome() {

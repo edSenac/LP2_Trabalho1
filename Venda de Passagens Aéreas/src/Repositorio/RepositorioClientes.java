@@ -38,7 +38,7 @@ public class RepositorioClientes {
         return false;
     }
 
-    public Cliente buscarPaciente(String rg) {
+    public Cliente getCliente(String rg) {
         for (Cliente cliente : clientes) {
             if (cliente.getRg().equals(rg)) {
                 return cliente;

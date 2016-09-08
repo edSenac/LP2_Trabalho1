@@ -17,7 +17,10 @@ public class Venda {
     private Voo voo;
     private Date horario_compra;
 
-    public Venda() {
+    public Venda(Cliente cliente, Voo voo, Date horario_compra) {
+        this.cliente = cliente;
+        this.voo = voo;
+        this.horario_compra = horario_compra;
     }
 
     public Cliente getCliente() {

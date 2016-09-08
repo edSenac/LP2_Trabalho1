@@ -44,7 +44,7 @@ public class ClientesUI {
         } while (opcao != ClientesMenu.OP_VOLTAR);        
     }
     
-    private void cadastrarCliente() {
+    public void cadastrarCliente() {
         String rg = Console.scanString("RG: ");
         if (lista.clienteExiste(rg)) {
             System.out.println("RG já existente no cadastro");
@@ -57,7 +57,7 @@ public class ClientesUI {
     }
 
 
-public void mostrarClientes() {
+    public void mostrarClientes() {
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-10s", "RG") + "\t"
                 + String.format("%-20s", "|NOME") + "\t"
