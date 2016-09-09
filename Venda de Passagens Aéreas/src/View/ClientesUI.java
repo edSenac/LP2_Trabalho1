@@ -9,6 +9,7 @@ import Model.Cliente;
 import Repositorio.RepositorioClientes;
 import util.Console;
 import Menu.ClientesMenu;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -26,8 +27,12 @@ public class ClientesUI {
         int opcao = 0;
         do {
             System.out.println(ClientesMenu.getOpcoes());
-            opcao = Console.scanInt("Digite sua opção:");
-            // --TODO-- validacao
+            try{
+                opcao = Console.scanInt("Digite sua opção:");
+            }catch(InputMismatchException e){
+                // forca opcao invalida para refazer a leitura
+                opcao = -1;
+            }
             switch (opcao) {
                 case ClientesMenu.OP_CADASTRAR:
                     cadastrarCliente();

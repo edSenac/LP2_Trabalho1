@@ -14,6 +14,7 @@ import Repositorio.RepositorioClientes;
 import util.Console;
 import Menu.VendasMenu;
 import java.util.Date;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -31,8 +32,12 @@ public class VendasUI {
         int opcao = 0;
         do {
          System.out.println(VendasMenu.getOpcoes());
-            opcao = Console.scanInt("Digite sua opção:");
-            // --TODO-- validacao
+            try{
+                opcao = Console.scanInt("Digite sua opção:");
+            }catch(InputMismatchException e){
+                // forca opcao invalida para refazer a leitura
+                opcao = -1;
+            }
             switch (opcao) {
                 case VendasMenu.OP_CADASTRAR:
                     cadastrarVenda(voos, clientes);

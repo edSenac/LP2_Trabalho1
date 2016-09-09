@@ -9,6 +9,7 @@ import Model.Aviao;
 import Repositorio.RepositorioAvioes;
 import util.Console;
 import Menu.AvioesMenu;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -26,8 +27,12 @@ public class AvioesUI {
         int opcao = 0;
         do {
         System.out.println(AvioesMenu.getOpcoes());
-            opcao = Console.scanInt("Digite sua opção:");
-            // --TODO-- validar opcoes
+            try{
+                opcao = Console.scanInt("Digite sua opção:");
+            }catch(InputMismatchException e){
+                // forca opcao invalida para refazer a leitura
+                opcao = -1;
+            }
             switch (opcao) {
                 case AvioesMenu.OP_CADASTRAR:
                     cadastrarAviao();

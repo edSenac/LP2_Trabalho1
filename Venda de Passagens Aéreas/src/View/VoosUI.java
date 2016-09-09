@@ -14,6 +14,7 @@ import util.DateUtil;
 import Menu.VoosMenu;
 import java.util.Date;
 import java.text.ParseException;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -31,8 +32,12 @@ public class VoosUI {
         int opcao = 0;
         do {
         System.out.println(VoosMenu.getOpcoes());
-            opcao = Console.scanInt("Digite sua opção:");
-            // --TODO-- validacao
+            try{
+                opcao = Console.scanInt("Digite sua opção:");
+            }catch(InputMismatchException e){
+                // forca opcao invalida para refazer a leitura
+                opcao = -1;
+            }
             switch (opcao) {
                 case VoosMenu.OP_CADASTRAR:
                     cadastrarVoo(avioes);

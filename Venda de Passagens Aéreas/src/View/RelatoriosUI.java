@@ -14,6 +14,7 @@ import Repositorio.RepositorioClientes;
 import Repositorio.RepositorioVendas;
 import Repositorio.RepositorioVoos;
 import Menu.RelatoriosMenu;
+import java.util.InputMismatchException;
 import util.Console;
 
 /**
@@ -30,8 +31,12 @@ public class RelatoriosUI {
         int opcao = 0;
         do {
          System.out.println(RelatoriosMenu.getOpcoes());
-            opcao = Console.scanInt("Digite sua opção:");
-            // --TODO-- validacao
+            try{
+                opcao = Console.scanInt("Digite sua opção:");
+            }catch(InputMismatchException e){
+                // forca opcao invalida para refazer a leitura
+                opcao = -1;
+            }
             switch (opcao) {
                 case RelatoriosMenu.REL_CLIENTE:
                     porCliente();
