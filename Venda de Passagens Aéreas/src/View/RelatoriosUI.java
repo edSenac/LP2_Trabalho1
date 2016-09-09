@@ -68,10 +68,10 @@ public class RelatoriosUI {
     }
     
     public void porCliente(){
-    // --TODO-- para cada venda, se o cliente tem o rg == rg, mostra venda
+    // para cada venda, se o cliente tem o rg == rg, mostra venda
         ClientesUI clientesUI = new ClientesUI(clientes);
         clientesUI.mostrarClientes();
-        String rg = Console.scanString("RG: ");
+        String rg = Console.scanString("RG (11 dígitos): ");
         // --TODO-- validacao
         
         //print cabecalho
@@ -98,8 +98,7 @@ public class RelatoriosUI {
     // para cada venda, se o cliente tem o rg == rg, mostra voo
         ClientesUI clientesUI = new ClientesUI(clientes);
         clientesUI.mostrarClientes();
-        String rg = Console.scanString("RG: ");
-        // --TODO-- validacao
+        String rg = Console.scanString("RG (11 dígitos): ");
         // --TODO-- validacao
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "VOOS:\n"));
@@ -131,13 +130,64 @@ public class RelatoriosUI {
     }
     
     public void porOrigem(){
-    // --TODO-- para cada voo, se a origem == origem, mostra voo    
+    // para cada voo, se a origem == origem, mostra voo 
+        String origem = Console.scanString("Origem do Voo: ");
+        System.out.println("-----------------------------\n");
+        System.out.println(String.format("%-20s", "VOOS:\n"));
+        System.out.println(String.format("%-20s", "CODIGO") + "\t"
+                + String.format("%-20s", "|AVIAO") + "\t"
+                + String.format("%-20s", "|ORIGEM") + "\t"
+                + String.format("%-20s", "|DESTINO") + "\t"
+                + String.format("%-20s", "|HORARIO"));
+        boolean encontrouVoos = false;
+        for (Voo voo : voos.getListaVoos()){
+            if(voo.getOrigem().equals(origem)){
+                encontrouVoos = true;
+                System.out.println(String.format("%-20s", voo.getCodigo()) + "\t"
+                + String.format("%-20s", "|" + voo.getAviao().getNome()) + "\t"
+                + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
+                + String.format("%-20s", "|" + voo.getDestino()) + "\t"
+                + String.format("%-20s", "|" + voo.getHorario()));
+            }
+        }
+        if(!encontrouVoos){
+            System.out.println(String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----"));
+        }
         
     }
     
     public void porDestino(){
-    // --TODO-- para cada voo, se o destino == destino, mostra voo    
-        
+    //  para cada voo, se o destino == destino, mostra voo    
+        String destino = Console.scanString("Destino do Voo: ");
+        System.out.println("-----------------------------\n");
+        System.out.println(String.format("%-20s", "VOOS:\n"));
+        System.out.println(String.format("%-20s", "CODIGO") + "\t"
+                + String.format("%-20s", "|AVIAO") + "\t"
+                + String.format("%-20s", "|ORIGEM") + "\t"
+                + String.format("%-20s", "|DESTINO") + "\t"
+                + String.format("%-20s", "|HORARIO"));
+        boolean encontrouVoos = false;
+        for (Voo voo : voos.getListaVoos()){
+            if(voo.getDestino().equals(destino)){
+                encontrouVoos = true;
+                System.out.println(String.format("%-20s", voo.getCodigo()) + "\t"
+                + String.format("%-20s", "|" + voo.getAviao().getNome()) + "\t"
+                + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
+                + String.format("%-20s", "|" + voo.getDestino()) + "\t"
+                + String.format("%-20s", "|" + voo.getHorario()));
+            }
+        }
+        if(!encontrouVoos){
+            System.out.println(String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----"));
+        }
     }
         
 }

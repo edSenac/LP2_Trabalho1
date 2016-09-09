@@ -12,7 +12,14 @@ package util;
 public class Validacao {
     
     public boolean validaNome(String nome){
-        boolean match = nome.trim().matches("/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/");
-        return match;
+        boolean valido = nome.trim().matches("/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/");
+        return valido;
     }
+    
+    public boolean validaRg(String rg){
+        boolean valido = rg.trim().matches("[0-9]{10}");
+        return valido;
+    }
+    
+    
 }

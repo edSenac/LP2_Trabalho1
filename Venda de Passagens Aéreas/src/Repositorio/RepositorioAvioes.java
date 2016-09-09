@@ -29,6 +29,15 @@ public class RepositorioAvioes {
         return avioes;
     }
     
+    public boolean existeAviao(String nome){
+        for (Aviao aviao : avioes) {
+            if (aviao.getNome().equals(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public Aviao getAviao(int codigo){
         for (Aviao aviao : this.getListaAvioes()) {
             if(codigo == aviao.getCodigo()){

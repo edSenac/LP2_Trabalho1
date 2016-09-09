@@ -29,7 +29,7 @@ public class Aviao {
     public int getCodigo(){
         return this.codigo;
     }
-
+    
     public String getNome() {
         return nome;
     }
@@ -45,8 +45,5 @@ public class Aviao {
     public void setN_assentos(int n_assentos) {
         this.n_assentos = n_assentos;
     }
-    
-    
-    
     
 }

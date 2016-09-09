@@ -59,7 +59,7 @@ public class VendasUI {
         // --TODO-- RESTRINGIR PELO NUMERO DE ASSENTOS NO VOO
         ClientesUI clientesUI = new ClientesUI(clientes);
         clientesUI.mostrarClientes();
-        String rg = Console.scanString("RG: ");
+        String rg = Console.scanString("RG (11 dígitos): ");
         // --TODO-- validacao
         Cliente cliente = clientes.getCliente(rg);
         // --TODO-- verificar se cliente existe

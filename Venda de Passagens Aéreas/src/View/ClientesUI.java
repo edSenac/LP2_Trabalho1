@@ -8,6 +8,7 @@ package View;
 import Model.Cliente;
 import Repositorio.RepositorioClientes;
 import util.Console;
+import util.Validacao;
 import Menu.ClientesMenu;
 import java.util.InputMismatchException;
 
@@ -18,6 +19,7 @@ import java.util.InputMismatchException;
 public class ClientesUI {
     
     private RepositorioClientes lista;
+    private Validacao valida;
     
     public ClientesUI(RepositorioClientes lista){
         this.lista = lista;
@@ -51,8 +53,10 @@ public class ClientesUI {
     }
     
     public void cadastrarCliente() {
-        String rg = Console.scanString("RG: ");
-        // --TODO-- validacao
+        String rg = "";
+        //do{
+            rg = Console.scanString("RG (11 dígitos): ");
+        //}while(!valida.validaRg(rg));
         if (lista.clienteExiste(rg)) {
             System.out.println("RG já existente no cadastro");
         } else {
