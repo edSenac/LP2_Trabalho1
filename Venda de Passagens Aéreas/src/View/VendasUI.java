@@ -59,20 +59,31 @@ public class VendasUI {
         // --TODO-- RESTRINGIR PELO NUMERO DE ASSENTOS NO VOO
         ClientesUI clientesUI = new ClientesUI(clientes);
         clientesUI.mostrarClientes();
-        String rg = Console.scanString("RG (11 dígitos): ");
+        String rg;
+        do{
+            rg = Console.scanString("RG (11 dígitos): ");
+        }while(!clientes.clienteExiste(rg));
         // --TODO-- validacao
         Cliente cliente = clientes.getCliente(rg);
-        // --TODO-- verificar se cliente existe
         
         VoosUI voosUI = new VoosUI(voos);
         voosUI.mostrarVoos();
-        int codigo = Console.scanInt("Codigo do Voo: ");
+        int codigo;
+        do{
+            codigo = Console.scanInt("Codigo do Voo: ");
+        }while(!voos.vooExiste(codigo));
+        
         // --TODO-- validacao
         Voo voo = voos.getVoo(codigo);
         // --TODO-- verificar se voo existe e se ha lugar
-        
-        Date horario_compra = new Date();
-        lista.addVenda(new Venda(cliente, voo, horario_compra));
+        int assentosDisponiveis = voo.getAviao().getN_assentos();
+        if(assentosDisponiveis > 0){
+            voo.getAviao().setN_assentos(assentosDisponiveis -1);
+            lista.addVenda(new Venda(cliente, voo, new Date()));
+            System.out.println("Venda cadastrada com sucesso!");
+        }else{
+            System.out.println("Não há mais lugares disponíveis nesse vôo!");
+        }
     }
     
     public void mostrarVendas(){
@@ -84,10 +95,15 @@ public class VendasUI {
         for (Venda venda : lista.getListaVendas()) {
             Voo voo = venda.getVoo();
             Cliente cliente = venda.getCliente();
-            System.out.println(String.format("%-20s", cliente.getNome()) + "\t"
+            try{
+                System.out.println(String.format("%-20s", cliente.getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"
                 + String.format("%-20s", "|" + venda.getHorario_compra()) + "\t");
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+            
         }
     }
 }

@@ -6,7 +6,8 @@
 package Model;
 
 /**
- *
+ * Classe de abstração do Avião
+ * 
  * @author Eduardo
  */
 public class Aviao {
@@ -16,28 +17,54 @@ public class Aviao {
     private String nome;
     private int n_assentos;
 
+    /**
+     * Método construtor da classe
+     * 
+     * @param nome
+     * @param n_assentos 
+     */
     public Aviao(String nome, int n_assentos) {
         this.nome = nome;
         this.n_assentos = n_assentos;
         this.codigo = getCODIGO();
     }
-    
+    /**
+     * Gera um código para um avião
+     * 
+     * @return int codigo
+     */
     private static int getCODIGO() {
         return CODIGO++;
     }
     
+    /**
+     * Getter
+     * @return int codigo do avião
+     */
     public int getCodigo(){
         return this.codigo;
     }
     
+    /**
+     * Getter
+     * @return String nome do avião
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Setter
+     * @param nome String
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Getter
+     * @return int número de assentos do avião
+     */
     public int getN_assentos() {
         return n_assentos;
     }

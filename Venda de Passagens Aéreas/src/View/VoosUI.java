@@ -11,6 +11,7 @@ import Repositorio.RepositorioAvioes;
 import Repositorio.RepositorioVoos;
 import util.Console;
 import util.DateUtil;
+import util.Validacao;
 import Menu.VoosMenu;
 import java.util.Date;
 import java.text.ParseException;
@@ -23,6 +24,7 @@ import java.util.InputMismatchException;
 public class VoosUI {
     
     private RepositorioVoos lista;
+    private Validacao valida;
     
     public VoosUI(RepositorioVoos lista){
         this.lista = lista;
@@ -56,27 +58,33 @@ public class VoosUI {
     }
     
     public void cadastrarVoo(RepositorioAvioes avioes){
-            String origem = Console.scanString("Origem: ");
-            // --TODO-- validacao
-            String destino = Console.scanString("Destino: ");
-            // --TODO-- validacao
-            String horarioStr = Console.scanString("Horario (dd/mm/yyyy hh:mm): ");
-            // --TODO-- validacao
-            AvioesUI avioesUI = new AvioesUI(avioes);
-            avioesUI.mostrarAvioes();
-            int codAviao = Console.scanInt("Codigo do aviao: ");
-            // --TODO-- validacao
-            Aviao aviao = avioes.getAviao(codAviao);
-            Date horario = null;
-            try {
-                horario = DateUtil.stringToDateHour(horarioStr);
-            } catch (ParseException ex) {
-                System.out.println("Data ou hora no formato inválido!");                
-            }
-            if(horario != null){
-                lista.addVoo(new Voo(origem, destino, horario, aviao));
-                System.out.println("Voo cadastrado com sucesso!");
-            }
+        String origem;
+        String destino;
+        String horarioStr;
+        
+        origem = Console.scanString("Origem: ");
+        //System.out.println(valida.validaNome(origem));
+            
+        destino = Console.scanString("Destino: ");    
+        //System.out.println(!valida.validaNome(destino));
+        
+        horarioStr = Console.scanString("Horario (dd/mm/yyyy hh:mm): ");
+
+        AvioesUI avioesUI = new AvioesUI(avioes);
+        avioesUI.mostrarAvioes();
+        int codAviao = Console.scanInt("Codigo do aviao: ");
+        // --TODO-- validacao
+        Aviao aviao = avioes.getAviao(codAviao);
+        Date horario = null;
+        try {
+            horario = DateUtil.stringToDateHour(horarioStr);
+        } catch (ParseException ex) {
+            System.out.println("Data ou hora no formato inválido!");                
+        }
+        if(horario != null){
+            lista.addVoo(new Voo(origem, destino, horario, aviao));
+            System.out.println("Voo cadastrado com sucesso!");
+        }
     }
     
     public void mostrarVoos(){

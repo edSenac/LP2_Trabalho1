@@ -4,21 +4,34 @@
  * and open the template in the editor.
  */
 package util;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  *
  * @author Eduardo
  */
 public class Validacao {
     
+    Pattern pattern;
+    Matcher matcher;
+    
     public boolean validaNome(String nome){
-        boolean valido = nome.trim().matches("/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/");
-        return valido;
+        if(nome.equals("")){
+            return false;
+        }
+        pattern = Pattern.compile("[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$");
+        matcher = pattern.matcher(nome);
+        boolean result = matcher.matches();
+        return result;
     }
     
     public boolean validaRg(String rg){
-        boolean valido = rg.trim().matches("[0-9]{10}");
-        return valido;
+        if(rg.equals("")){
+            return false;
+        }
+        pattern = Pattern.compile("[0-9]{10}");
+        matcher = pattern.matcher(rg);
+        return matcher.matches();
     }
     
     

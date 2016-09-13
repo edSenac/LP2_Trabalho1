@@ -5,10 +5,6 @@
  */
 package util;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,53 +14,60 @@ import static org.junit.Assert.*;
  */
 public class ValidacaoTest {
     
+    private String nomeValido;
+    private String nomeInvalido;
+    
+    private String rgValido;
+    private String rgInvalido;
+    
     public ValidacaoTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+        nomeValido = "nome";
+        nomeInvalido = "1";
+        
+        rgValido = "1234567890";
+        rgInvalido = "aaa";
     }
 
     /**
      * Test of validaNome method, of class Validacao.
      */
     @Test
-    public void testValidaNome() {
+    public void testValidaNomeValido() {
         System.out.println("validaNome");
-        String nome = "";
         Validacao instance = new Validacao();
-        boolean expResult = false;
-        boolean result = instance.validaNome(nome);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        boolean result = instance.validaNome(nomeValido);
+        assertEquals(true, result);
+    }
+    
+    @Test
+    public void testValidaNomeInvalido() {
+        System.out.println("validaNome");
+        Validacao instance = new Validacao();
+
+        boolean result = instance.validaNome(nomeInvalido);
+        assertEquals(false, result);
     }
 
     /**
      * Test of validaRg method, of class Validacao.
      */
     @Test
-    public void testValidaRg() {
+    public void testValidaRgValido() {
         System.out.println("validaRg");
-        String rg = "";
         Validacao instance = new Validacao();
-        boolean expResult = false;
-        boolean result = instance.validaRg(rg);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        boolean result = instance.validaRg(rgValido);
+        assertEquals(true, result);
+    }
+    
+    @Test
+    public void testValidaRgInvalido() {
+        System.out.println("validaRg");
+        Validacao instance = new Validacao();
+
+        boolean result = instance.validaRg(rgInvalido);
+        assertEquals(false, result);
     }
     
 }

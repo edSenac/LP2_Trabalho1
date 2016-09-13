@@ -29,6 +29,15 @@ public class RepositorioVoos {
         return voos;
     }
     
+    public boolean vooExiste(int codigo){
+        for (Voo voo : this.getListaVoos()) {
+            if(codigo == voo.getCodigo()){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public Voo getVoo(int codigo){
         for (Voo voo : this.getListaVoos()) {
             if(codigo == voo.getCodigo()){

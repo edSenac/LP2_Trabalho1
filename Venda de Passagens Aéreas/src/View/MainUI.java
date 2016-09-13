@@ -2,12 +2,11 @@ package View;
 
 import util.Console;
 import Menu.MainMenu;
-import Repositorio.RepositorioAvioes;
-import Repositorio.RepositorioClientes;
-import Repositorio.RepositorioVendas;
-import Repositorio.RepositorioVoos;
+import Repositorio.*;
 import java.util.InputMismatchException;
 
+import Model.*;
+import java.util.Date;
 /**
  *
  * @author Eduardo
@@ -26,8 +25,23 @@ public class MainUI {
         listaVendas = new RepositorioVendas();
         listaVoos = new RepositorioVoos();
         
+        inicializar();
     }
 
+    private void inicializar(){
+        Aviao aviao = new Aviao("aviao1",1);
+        listaAvioes.addAviao(aviao);
+        
+        Cliente cliente = new Cliente("Cliente", "1234567890", "99999999");
+        listaClientes.addCliente(cliente);
+        
+        Voo voo = new Voo("POA", "BSB", new Date(), aviao);
+        listaVoos.addVoo(voo);
+        
+        Venda venda = new Venda(cliente, voo, new Date());
+        listaVendas.addVenda(venda);
+    }
+    
     public void executar() {
         int opcao = 0;
         do {

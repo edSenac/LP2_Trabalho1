@@ -12,17 +12,26 @@ import Menu.AvioesMenu;
 import java.util.InputMismatchException;
 
 /**
- *
+ * Interface para as classes @see Aviao.java e @see RepositorioAvioes.java
+ * 
  * @author Eduardo
  */
 public class AvioesUI {
  
     private RepositorioAvioes lista;
     
+    /**
+     * Método construtor da classe
+     * 
+     * @param lista RepositorioAvioes
+     */
     public AvioesUI(RepositorioAvioes lista){
         this.lista = lista;
     }
     
+    /**
+     * Método utilizado para interagir com o usuário
+     */
     public void executar(){
         int opcao = 0;
         do {
@@ -50,15 +59,26 @@ public class AvioesUI {
         } while (opcao != AvioesMenu.OP_VOLTAR);
     }
     
+    /**
+     * Método que adiciona um objeto avião ao repositório
+     */
     public void cadastrarAviao(){
-            String nome = Console.scanString("Nome: ");
-            // --TODO-- validacao
-            int n_assentos = Console.scanInt("Numero de assentos: ");
-            // --TODO-- validacao
+        String nome = Console.scanString("Nome: ");
+        // --TODO-- validacao
+        int n_assentos = Console.scanInt("Numero de assentos: ");
+        // --TODO-- validacao
+
+        if(lista.existeAviao(nome)){
+            System.out.println("Aviao " + nome + " já cadastrado!");
+        }else{
             lista.addAviao(new Aviao(nome, n_assentos));
             System.out.println("Aviao " + nome + " cadastrado com sucesso!");
+        }
     }
     
+    /**
+     * Exibe os aviões já cadastrados
+     */
     public void mostrarAvioes(){
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "CODIGO") + "\t"

@@ -26,6 +26,11 @@ public class ClientesUI {
     }
     
     public void executar() {
+        
+        /*debug
+            valida.validaNome("joao");
+        */
+        
         int opcao = 0;
         do {
             System.out.println(ClientesMenu.getOpcoes());
@@ -53,15 +58,15 @@ public class ClientesUI {
     }
     
     public void cadastrarCliente() {
-        String rg = "";
-        //do{
-            rg = Console.scanString("RG (11 dígitos): ");
-        //}while(!valida.validaRg(rg));
+        String rg;
+        rg = Console.scanString("RG (11 dígitos): ");
         if (lista.clienteExiste(rg)) {
             System.out.println("RG já existente no cadastro");
         } else {
-            String nome = Console.scanString("Nome: ");
-            // --TODO-- validacao
+            String nome;
+            //do{
+                nome = Console.scanString("Nome: ");
+            //}while(!valida.validaNome(nome));
             String telefone = Console.scanString("Telefone: ");
             // --TODO-- validacao
             lista.addCliente(new Cliente(nome, rg, telefone));
