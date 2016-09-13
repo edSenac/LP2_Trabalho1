@@ -16,7 +16,7 @@ public class Validacao {
     Matcher matcher;
     
     public boolean validaNome(String nome){
-        if(nome.equals("")){
+        if(nome.isEmpty()){
             return false;
         }
         pattern = Pattern.compile("[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$");
@@ -26,7 +26,7 @@ public class Validacao {
     }
     
     public boolean validaRg(String rg){
-        if(rg.equals("")){
+        if(rg.isEmpty()){
             return false;
         }
         pattern = Pattern.compile("[0-9]{10}");
