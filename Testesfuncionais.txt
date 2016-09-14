@@ -33,4 +33,4 @@
         
 
 
-Entradas vazias não são aceitas, entradas numéricas inválidas (<0) não são aceitas, mas validação de string retorna exceção.
+Entradas vazias não são aceitas, entradas repetidas não são aceitas (quando necessário), entradas numéricas inválidas (<0) não são aceitas, mas validação de string retorna exceção.
