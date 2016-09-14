@@ -73,7 +73,7 @@ public class RelatoriosUI {
         clientesUI.mostrarClientes();
         String rg;
         do{
-           rg = Console.scanString("RG (11 dígitos): ");
+           rg = Console.scanString("RG: ");
         }while(rg.isEmpty());
         // --TODO-- validacao
         
@@ -103,7 +103,7 @@ public class RelatoriosUI {
         clientesUI.mostrarClientes();
         String rg;
         do{
-        rg = Console.scanString("RG (11 dígitos): ");
+        rg = Console.scanString("RG: ");
         }while(rg.isEmpty());
         // --TODO-- validacao
         System.out.println("-----------------------------\n");

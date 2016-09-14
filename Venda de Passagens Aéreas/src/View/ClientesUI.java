@@ -60,7 +60,7 @@ public class ClientesUI {
     public void cadastrarCliente() {
         String rg;
         do{
-            rg = Console.scanString("RG (11 dígitos): ");
+            rg = Console.scanString("RG: ");
         }while(rg.isEmpty());
         if (lista.clienteExiste(rg)) {
             System.out.println("RG já existente no cadastro");

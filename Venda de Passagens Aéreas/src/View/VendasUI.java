@@ -61,7 +61,7 @@ public class VendasUI {
         clientesUI.mostrarClientes();
         String rg;
         do{
-            rg = Console.scanString("RG (11 dígitos): ");
+            rg = Console.scanString("RG: ");
         }while(!clientes.clienteExiste(rg));
         // --TODO-- validacao
         Cliente cliente = clientes.getCliente(rg);
