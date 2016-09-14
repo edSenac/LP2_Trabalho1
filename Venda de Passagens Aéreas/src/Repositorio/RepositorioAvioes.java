@@ -38,6 +38,15 @@ public class RepositorioAvioes {
         return false;
     }
     
+        public boolean existeAviaoCod(int codigo){
+        for (Aviao aviao : avioes) {
+            if (aviao.getCodigo() == codigo) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public Aviao getAviao(int codigo){
         for (Aviao aviao : this.getListaAvioes()) {
             if(codigo == aviao.getCodigo()){

@@ -62,25 +62,35 @@ public class VoosUI {
         String destino;
         String horarioStr;
         
-        origem = Console.scanString("Origem: ");
-        //System.out.println(valida.validaNome(origem));
-            
-        destino = Console.scanString("Destino: ");    
-        //System.out.println(!valida.validaNome(destino));
+        do{
+            origem = Console.scanString("Origem: ");
+            //System.out.println(valida.validaNome(origem));
+        }while(origem.isEmpty());
         
+        do{
+            destino = Console.scanString("Destino: ");    
+            //System.out.println(!valida.validaNome(destino));
+        }while(destino.isEmpty());
         horarioStr = Console.scanString("Horario (dd/mm/yyyy hh:mm): ");
-
-        AvioesUI avioesUI = new AvioesUI(avioes);
-        avioesUI.mostrarAvioes();
-        int codAviao = Console.scanInt("Codigo do aviao: ");
-        // --TODO-- validacao
-        Aviao aviao = avioes.getAviao(codAviao);
+        
         Date horario = null;
         try {
             horario = DateUtil.stringToDateHour(horarioStr);
         } catch (ParseException ex) {
-            System.out.println("Data ou hora no formato inválido!");                
+            System.out.println("Data ou hora no formato inválido!");
+            return;
         }
+        
+        AvioesUI avioesUI = new AvioesUI(avioes);
+        avioesUI.mostrarAvioes();
+        int codAviao;
+        do{
+            codAviao = Console.scanInt("Codigo do aviao: ");
+            // --TODO-- validacao
+        }while(!avioes.existeAviaoCod(codAviao));
+        
+        Aviao aviao = avioes.getAviao(codAviao);
+
         if(horario != null){
             lista.addVoo(new Voo(origem, destino, horario, aviao));
             System.out.println("Voo cadastrado com sucesso!");

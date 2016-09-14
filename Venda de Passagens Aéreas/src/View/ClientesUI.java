@@ -59,15 +59,20 @@ public class ClientesUI {
     
     public void cadastrarCliente() {
         String rg;
-        rg = Console.scanString("RG (11 dígitos): ");
+        do{
+            rg = Console.scanString("RG (11 dígitos): ");
+        }while(rg.isEmpty());
         if (lista.clienteExiste(rg)) {
             System.out.println("RG já existente no cadastro");
         } else {
             String nome;
-            //do{
+            do{
                 nome = Console.scanString("Nome: ");
-            //}while(!valida.validaNome(nome));
-            String telefone = Console.scanString("Telefone: ");
+            }while(nome.isEmpty());
+            String telefone;
+            do{
+                telefone = Console.scanString("Telefone: ");
+            }while(telefone.isEmpty());
             // --TODO-- validacao
             lista.addCliente(new Cliente(nome, rg, telefone));
             System.out.println("Cliente " + nome + " cadastrado com sucesso!");

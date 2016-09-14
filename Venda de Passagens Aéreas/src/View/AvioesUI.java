@@ -39,7 +39,8 @@ public class AvioesUI {
             try{
                 opcao = Console.scanInt("Digite sua opção:");
             }catch(InputMismatchException e){
-                // forca opcao invalida para refazer a leitura
+                /*  caso a entrada nao seja um int, forca uma opcao invalida
+                    para refazer a leitura */
                 opcao = -1;
             }
             switch (opcao) {
@@ -63,17 +64,22 @@ public class AvioesUI {
      * Método que adiciona um objeto avião ao repositório
      */
     public void cadastrarAviao(){
-        String nome = Console.scanString("Nome: ");
+        String nome;
+        do{
+            nome = Console.scanString("Nome: ");
+        }while(nome.isEmpty());
         // --TODO-- validacao
-        int n_assentos = Console.scanInt("Numero de assentos: ");
-        // --TODO-- validacao
-
         if(lista.existeAviao(nome)){
             System.out.println("Aviao " + nome + " já cadastrado!");
         }else{
+            int n_assentos;
+            do{
+                n_assentos = Console.scanInt("Numero de assentos: ");
+            }while(n_assentos < 1);
             lista.addAviao(new Aviao(nome, n_assentos));
             System.out.println("Aviao " + nome + " cadastrado com sucesso!");
         }
+        
     }
     
     /**
