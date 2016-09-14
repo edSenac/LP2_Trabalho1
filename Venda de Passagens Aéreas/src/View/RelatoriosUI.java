@@ -71,7 +71,10 @@ public class RelatoriosUI {
     // para cada venda, se o cliente tem o rg == rg, mostra venda
         ClientesUI clientesUI = new ClientesUI(clientes);
         clientesUI.mostrarClientes();
-        String rg = Console.scanString("RG (11 dígitos): ");
+        String rg;
+        do{
+           rg = Console.scanString("RG (11 dígitos): ");
+        }while(rg.isEmpty());
         // --TODO-- validacao
         
         //print cabecalho
@@ -98,7 +101,10 @@ public class RelatoriosUI {
     // para cada venda, se o cliente tem o rg == rg, mostra voo
         ClientesUI clientesUI = new ClientesUI(clientes);
         clientesUI.mostrarClientes();
-        String rg = Console.scanString("RG (11 dígitos): ");
+        String rg;
+        do{
+        rg = Console.scanString("RG (11 dígitos): ");
+        }while(rg.isEmpty());
         // --TODO-- validacao
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "VOOS:\n"));
@@ -131,7 +137,10 @@ public class RelatoriosUI {
     
     public void porOrigem(){
     // para cada voo, se a origem == origem, mostra voo 
-        String origem = Console.scanString("Origem do Voo: ");
+        String origem;
+        do{
+            origem = Console.scanString("Origem do Voo: ");
+        }while(origem.isEmpty());
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "VOOS:\n"));
         System.out.println(String.format("%-20s", "CODIGO") + "\t"
@@ -162,7 +171,10 @@ public class RelatoriosUI {
     
     public void porDestino(){
     //  para cada voo, se o destino == destino, mostra voo    
-        String destino = Console.scanString("Destino do Voo: ");
+        String destino;
+        do{
+            destino = Console.scanString("Destino do Voo: ");
+        }while(destino.isEmpty());
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "VOOS:\n"));
         System.out.println(String.format("%-20s", "CODIGO") + "\t"
