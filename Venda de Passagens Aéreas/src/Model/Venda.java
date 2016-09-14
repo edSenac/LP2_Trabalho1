@@ -8,7 +8,8 @@ package Model;
 import java.util.Date;
 
 /**
- *
+ * Classe de abstração de Venda
+ * 
  * @author Eduardo
  */
 public class Venda {

@@ -6,7 +6,7 @@
 package Model;
 
 /**
- * Classe de abstração do Avião
+ * Classe de abstração de Avião
  * 
  * @author Eduardo
  */
@@ -28,6 +28,7 @@ public class Aviao {
         this.n_assentos = n_assentos;
         this.codigo = getCODIGO();
     }
+    
     /**
      * Gera um código para um avião
      * 
