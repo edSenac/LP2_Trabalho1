@@ -61,7 +61,7 @@ public class VendasUI {
      * @param voos
      * @param clientes 
      */
-    public void cadastrarVenda(RepositorioVoos voos, RepositorioClientes clientes){
+    public boolean cadastrarVenda(RepositorioVoos voos, RepositorioClientes clientes){
         
         ClientesUI clientesUI = new ClientesUI(clientes);
         clientesUI.mostrarClientes();
@@ -84,11 +84,15 @@ public class VendasUI {
         
         int assentosDisponiveis = voo.getAviao().getN_assentos();
         if(assentosDisponiveis > 0){
+            // não considera que um avião tem mais de um voo
             voo.getAviao().setN_assentos(assentosDisponiveis -1);
+            // voo deve ter um parametro com o numero de assentos livres/ocupados
             lista.addVenda(new Venda(cliente, voo, new Date()));
             System.out.println("Venda cadastrada com sucesso!");
+            return true;
         }else{
             System.out.println("Não há mais lugares disponíveis nesse vôo!");
+            return false;
         }
     }
     

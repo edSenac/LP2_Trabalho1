@@ -29,6 +29,13 @@ public class RelatoriosUI {
     private RepositorioVoos voos;
     private Validacao valida = new Validacao();
     
+    /*
+    
+        passar métodos de busca para o repositório
+    
+    */
+    
+    
     public void executar(){
         int opcao = 0;
         do {

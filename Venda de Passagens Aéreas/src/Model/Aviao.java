@@ -20,8 +20,8 @@ public class Aviao {
     /**
      * Método construtor da classe
      * 
-     * @param nome
-     * @param n_assentos 
+     * @param nome String
+     * @param n_assentos int
      */
     public Aviao(String nome, int n_assentos) {
         this.nome = nome;
