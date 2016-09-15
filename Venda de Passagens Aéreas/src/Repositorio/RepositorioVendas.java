@@ -29,4 +29,8 @@ public class RepositorioVendas {
         return vendas;
     }
     
+    /* adicionar método para verificar consistência do numero de assentos
+        se não tem mais voos não vende.
+    */
+    
 }

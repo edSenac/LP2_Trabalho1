@@ -83,7 +83,7 @@ public class VendasUI {
         Voo voo = voos.getVoo(codigo);
         
         int assentosDisponiveis = voo.getAviao().getN_assentos();
-        if(assentosDisponiveis > 0){
+        if(assentosDisponiveis > 0){ // fazer verificaçã na venda
             // não considera que um avião tem mais de um voo
             voo.getAviao().setN_assentos(assentosDisponiveis -1);
             // voo deve ter um parametro com o numero de assentos livres/ocupados
