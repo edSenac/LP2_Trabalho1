@@ -24,7 +24,7 @@ import java.util.InputMismatchException;
 public class VoosUI {
     
     private RepositorioVoos lista;
-    private Validacao valida;
+    private Validacao valida = new Validacao();
     
     public VoosUI(RepositorioVoos lista){
         this.lista = lista;
@@ -64,13 +64,11 @@ public class VoosUI {
         
         do{
             origem = Console.scanString("Origem: ");
-            //System.out.println(valida.validaNome(origem));
-        }while(origem.isEmpty());
+        }while(!valida.validaNome(origem));
         
         do{
             destino = Console.scanString("Destino: ");    
-            //System.out.println(!valida.validaNome(destino));
-        }while(destino.isEmpty());
+        }while(!valida.validaNome(origem));
         horarioStr = Console.scanString("Horario (dd/mm/yyyy hh:mm): ");
         
         Date horario = null;
@@ -110,7 +108,6 @@ public class VoosUI {
                 + String.format("%-20s", "|" + aviao.getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"
-                    // --TODO-- formatar hora?
                 + String.format("%-20s", "|" + voo.getHorario()) + "\t");
         }
     } 

@@ -16,6 +16,7 @@ import Repositorio.RepositorioVoos;
 import Menu.RelatoriosMenu;
 import java.util.InputMismatchException;
 import util.Console;
+import util.Validacao;
 
 /**
  *
@@ -26,6 +27,7 @@ public class RelatoriosUI {
     private RepositorioClientes clientes;
     private RepositorioVendas vendas;
     private RepositorioVoos voos;
+    private Validacao valida = new Validacao();
     
     public void executar(){
         int opcao = 0;
@@ -74,8 +76,7 @@ public class RelatoriosUI {
         String rg;
         do{
            rg = Console.scanString("RG: ");
-        }while(rg.isEmpty());
-        // --TODO-- validacao
+        }while(!valida.validaRg(rg));
         
         //print cabecalho
         System.out.println("-----------------------------\n");
@@ -103,9 +104,8 @@ public class RelatoriosUI {
         clientesUI.mostrarClientes();
         String rg;
         do{
-        rg = Console.scanString("RG: ");
-        }while(rg.isEmpty());
-        // --TODO-- validacao
+            rg = Console.scanString("RG: ");
+        }while(!valida.validaRg(rg));
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "VOOS:\n"));
         System.out.println(String.format("%-20s", "CODIGO") + "\t"
@@ -140,7 +140,7 @@ public class RelatoriosUI {
         String origem;
         do{
             origem = Console.scanString("Origem do Voo: ");
-        }while(origem.isEmpty());
+        }while(!valida.validaNome(origem));
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "VOOS:\n"));
         System.out.println(String.format("%-20s", "CODIGO") + "\t"
@@ -174,7 +174,7 @@ public class RelatoriosUI {
         String destino;
         do{
             destino = Console.scanString("Destino do Voo: ");
-        }while(destino.isEmpty());
+        }while(!valida.validaNome(destino));
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "VOOS:\n"));
         System.out.println(String.format("%-20s", "CODIGO") + "\t"

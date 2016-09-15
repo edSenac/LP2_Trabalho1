@@ -17,7 +17,7 @@ public class MainUI {
     private RepositorioClientes listaClientes;
     private RepositorioVendas listaVendas;
     private RepositorioVoos listaVoos;
-
+    
     public MainUI() {
         
         listaAvioes = new RepositorioAvioes();
@@ -27,9 +27,29 @@ public class MainUI {
         
         inicializar();
     }
-
+    /**
+     * Inicializa o programa com alguns dados para teste:
+     *     
+     *      Avião: 
+     *          nome: Aviao,
+     *          numero de assentos: 1
+     *      Cliente: 
+     *          nome: Cliente, 
+     *          rg 1234567890,
+     *          telefone 99999999
+     *      Voo: 
+     *          Origem: POA
+     *          Destino: BSB,
+     *          Aviao: Aviao,
+     *          Horário: data e hora da execução do método
+     *      Venda:
+     *          Cliente: Cliente,
+     *          Voo: Voo cadastrado acima,
+     *          Data/hora da venda: data e hora da execução do método
+     * 
+     */
     private void inicializar(){
-        Aviao aviao = new Aviao("aviao1",1);
+        Aviao aviao = new Aviao("Aviao", 1);
         listaAvioes.addAviao(aviao);
         
         Cliente cliente = new Cliente("Cliente", "1234567890", "99999999");
@@ -43,6 +63,7 @@ public class MainUI {
     }
     
     public void executar() {
+
         int opcao = 0;
         do {
             System.out.println(MainMenu.getOpcoes());

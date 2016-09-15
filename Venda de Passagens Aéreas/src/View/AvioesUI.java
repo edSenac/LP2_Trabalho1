@@ -10,6 +10,7 @@ import Repositorio.RepositorioAvioes;
 import util.Console;
 import Menu.AvioesMenu;
 import java.util.InputMismatchException;
+import util.Validacao;
 
 /**
  * Interface para as classes @see Aviao.java e @see RepositorioAvioes.java
@@ -19,6 +20,7 @@ import java.util.InputMismatchException;
 public class AvioesUI {
  
     private RepositorioAvioes lista;
+    private Validacao valida;
     
     /**
      * Método construtor da classe
@@ -65,9 +67,10 @@ public class AvioesUI {
      */
     public void cadastrarAviao(){
         String nome;
+        Validacao valida = new Validacao();
         do{
             nome = Console.scanString("Nome: ");
-        }while(nome.isEmpty());
+        }while(!valida.validaNome(nome));
         // --TODO-- validacao
         if(lista.existeAviao(nome)){
             System.out.println("Aviao " + nome + " já cadastrado!");

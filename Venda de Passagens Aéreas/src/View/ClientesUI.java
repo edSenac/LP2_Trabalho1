@@ -19,17 +19,13 @@ import java.util.InputMismatchException;
 public class ClientesUI {
     
     private RepositorioClientes lista;
-    private Validacao valida;
+    private Validacao valida = new Validacao();
     
     public ClientesUI(RepositorioClientes lista){
         this.lista = lista;
     }
     
     public void executar() {
-        
-        /*debug
-            valida.validaNome("joao");
-        */
         
         int opcao = 0;
         do {
@@ -58,21 +54,22 @@ public class ClientesUI {
     }
     
     public void cadastrarCliente() {
+        Validacao valida = new Validacao();
         String rg;
         do{
             rg = Console.scanString("RG: ");
-        }while(rg.isEmpty());
+        }while(!valida.validaRg(rg));
         if (lista.clienteExiste(rg)) {
             System.out.println("RG já existente no cadastro");
         } else {
             String nome;
             do{
                 nome = Console.scanString("Nome: ");
-            }while(nome.isEmpty());
+            }while(!valida.validaNome(nome));
             String telefone;
             do{
                 telefone = Console.scanString("Telefone: ");
-            }while(telefone.isEmpty());
+            }while(!valida.validaTelefone(telefone));
             // --TODO-- validacao
             lista.addCliente(new Cliente(nome, rg, telefone));
             System.out.println("Cliente " + nome + " cadastrado com sucesso!");

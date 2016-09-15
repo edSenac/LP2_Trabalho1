@@ -55,15 +55,21 @@ public class VendasUI {
         } while (opcao != VendasMenu.OP_VOLTAR);
     }
 
+    /**
+     * Cadastra uma venda a partir de um voo e um cliente, validando pelo numero
+     * de assentos disponíveis no avião
+     * @param voos
+     * @param clientes 
+     */
     public void cadastrarVenda(RepositorioVoos voos, RepositorioClientes clientes){
-        // --TODO-- RESTRINGIR PELO NUMERO DE ASSENTOS NO VOO
+        
         ClientesUI clientesUI = new ClientesUI(clientes);
         clientesUI.mostrarClientes();
         String rg;
         do{
             rg = Console.scanString("RG: ");
         }while(!clientes.clienteExiste(rg));
-        // --TODO-- validacao
+        
         Cliente cliente = clientes.getCliente(rg);
         
         VoosUI voosUI = new VoosUI(voos);
@@ -73,9 +79,9 @@ public class VendasUI {
             codigo = Console.scanInt("Codigo do Voo: ");
         }while(!voos.vooExiste(codigo));
         
-        // --TODO-- validacao
+        
         Voo voo = voos.getVoo(codigo);
-        // --TODO-- verificar se voo existe e se ha lugar
+        
         int assentosDisponiveis = voo.getAviao().getN_assentos();
         if(assentosDisponiveis > 0){
             voo.getAviao().setN_assentos(assentosDisponiveis -1);
@@ -103,7 +109,7 @@ public class VendasUI {
             }catch(Exception e){
                 System.out.println(e.getMessage());
             }
-            
+         
         }
     }
 }
