@@ -101,14 +101,16 @@ public class VoosUI {
                 + String.format("%-20s", "|AVIAO") + "\t"
                 + String.format("%-20s", "|ORIGEM") + "\t"
                 + String.format("%-20s", "|DESTINO") + "\t"
-                + String.format("%-20s", "|HORARIO"));
+                + String.format("%-30s", "|HORARIO") + "\t"
+                + String.format("%-20s", "|LUGARES DISPONIVEIS"));
         for (Voo voo : lista.getListaVoos()) {
             Aviao aviao = voo.getAviao();
             System.out.println(String.format("%-20s", voo.getCodigo()) + "\t"
                 + String.format("%-20s", "|" + aviao.getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"
-                + String.format("%-20s", "|" + voo.getHorario()) + "\t");
+                + String.format("%-30s", "|" + voo.getHorario()) + "\t"
+                + String.format("%-20s", "|" + voo.getLugares()));
         }
     } 
 }

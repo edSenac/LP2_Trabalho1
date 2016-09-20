@@ -20,6 +20,7 @@ public class Voo {
     private String destino;
     private Date horario;
     private Aviao aviao;
+    private int lugares;
     
     /**
      * Método construtor da classe
@@ -35,6 +36,7 @@ public class Voo {
         this.destino = destino;
         this.horario = horario;
         this.aviao = aviao;
+        this.lugares = aviao.getN_assentos();
     }
     
     /**
@@ -118,5 +120,12 @@ public class Voo {
         this.aviao = aviao;
     }
     
+    public int getLugares(){
+        return lugares;
+    }
+    
+    public void setLugares(int lugares){
+        this.lugares = lugares;
+    }
     
 }
