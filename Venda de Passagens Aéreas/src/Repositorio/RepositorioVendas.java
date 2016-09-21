@@ -32,7 +32,7 @@ public class RepositorioVendas {
         return vendas;
     }
     
-    public boolean cadastraVenda(int codigo, Cliente cliente, Voo voo){
+    public boolean cadastraVenda(Cliente cliente, Voo voo){
         int lugares = voo.getLugares();
         if(lugares > 0){
             this.addVenda(new Venda(cliente, voo, new Date()));

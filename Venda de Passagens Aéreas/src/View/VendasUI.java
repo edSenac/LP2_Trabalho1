@@ -81,7 +81,7 @@ public class VendasUI {
         
         Voo voo = voos.getVoo(codigo);
         
-        return lista.cadastraVenda(codigo, cliente, voo);
+        return lista.cadastraVenda(cliente, voo);
         
         /*
         int lugares = voo.getLugares();
