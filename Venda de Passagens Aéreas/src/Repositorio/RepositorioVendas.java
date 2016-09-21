@@ -6,7 +6,10 @@
 package Repositorio;
 
 import Model.Venda;
+import Model.Voo;
+import Model.Cliente;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +32,19 @@ public class RepositorioVendas {
         return vendas;
     }
     
+    public boolean cadastraVenda(int codigo, Cliente cliente, Voo voo){
+        int lugares = voo.getLugares();
+        if(lugares > 0){
+            this.addVenda(new Venda(cliente, voo, new Date()));
+            voo.setLugares(lugares -1);
+            System.out.println("Venda cadastrada com sucesso!");
+            return true;
+        }
+        else{
+            System.out.println("Não há mais lugares disponíveis nesse vôo!");
+            return false;
+        }
+    }
     /* adicionar método para verificar consistência do numero de assentos
         se não tem mais voos não vende.
     */

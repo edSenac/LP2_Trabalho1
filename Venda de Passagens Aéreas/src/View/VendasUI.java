@@ -79,15 +79,24 @@ public class VendasUI {
             codigo = Console.scanInt("Codigo do Voo: ");
         }while(!voos.vooExiste(codigo));
         
-        
         Voo voo = voos.getVoo(codigo);
+        
+        return lista.cadastraVenda(codigo, cliente, voo);
+        
+        /*
         int lugares = voo.getLugares();
         if(lugares > 0){
             lista.addVenda(new Venda(cliente, voo, new Date()));
             voo.setLugares(lugares -1);
             System.out.println("Venda cadastrada com sucesso!");
             return true;
+        }else{
+            System.out.println("Não há mais lugares disponíveis nesse vôo!");
+            return false;
         }
+        */
+        
+        
         /*
         int assentosDisponiveis = voo.getAviao().getN_assentos();
         if(assentosDisponiveis > 0){ // fazer verificaçã na venda
@@ -97,10 +106,7 @@ public class VendasUI {
             */
             
             
-        else{
-            System.out.println("Não há mais lugares disponíveis nesse vôo!");
-            return false;
-        }
+        
     }
     
     public void mostrarVendas(){
