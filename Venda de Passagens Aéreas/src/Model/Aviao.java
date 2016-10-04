@@ -29,6 +29,12 @@ public class Aviao {
         this.codigo = getCODIGO();
     }
     
+    public Aviao(int codigo, String nome, int n_assentos){
+        this.codigo = codigo;
+        this.nome = nome;
+        this.n_assentos = n_assentos;
+    }
+    
     /**
      * Gera um código para um avião
      * 
@@ -72,6 +78,10 @@ public class Aviao {
 
     public void setN_assentos(int n_assentos) {
         this.n_assentos = n_assentos;
+    }
+
+    public void setCodigo(int id) {
+        this.codigo = id;
     }
     
 }

@@ -6,6 +6,7 @@
 package interfaces;
 
 import Model.Aviao;
+import java.util.List;
 
 /**
  *
@@ -13,8 +14,9 @@ import Model.Aviao;
  */
 public interface AviaoDAO {
     public boolean salvar(Aviao aviao);
-    public boolean atualizar(Aviao aviao);
-    public boolean deletar(Aviao aviao);
-    public void listar();
+    public void atualizar(Aviao aviao);
+    public void deletar(Aviao aviao);
+    public List<Aviao> listar();
     public Aviao consultar(int id);
+    public List<Aviao> procurarPorNome(String name);
 }
