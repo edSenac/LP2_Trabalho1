@@ -17,8 +17,10 @@ public class Venda {
     private Cliente cliente;
     private Voo voo;
     private Date horario_compra;
-
-    public Venda(Cliente cliente, Voo voo, Date horario_compra) {
+    private int id;
+    
+    public Venda(int id, Cliente cliente, Voo voo, Date horario_compra) {
+        this.id = id;
         this.cliente = cliente;
         this.voo = voo;
         this.horario_compra = horario_compra;
@@ -46,6 +48,14 @@ public class Venda {
 
     public void setHorario_compra(Date horario_compra) {
         this.horario_compra = horario_compra;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public int getId(){
+        return id;
     }
     
 }

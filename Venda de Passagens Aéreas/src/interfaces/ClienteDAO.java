@@ -5,13 +5,13 @@
  */
 package interfaces;
 
-import Model.Aviao;
+import Model.Cliente;
 import java.util.List;
 
 /**
  *
- * @author 631620220
+ * @author Eduardo
  */
-public interface AviaoDAO {
-    public List<Aviao> procurarPorNome(String name);
+public interface ClienteDAO extends Dao<Cliente>{
+    public List<Cliente> procurarPorNome(String name);
 }

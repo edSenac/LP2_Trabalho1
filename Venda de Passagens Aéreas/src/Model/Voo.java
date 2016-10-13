@@ -14,8 +14,7 @@ import java.util.Date;
  */
 public class Voo {
     
-    private static int CODIGO = 1;
-    private int codigo;
+    private int id;
     private String origem;
     private String destino;
     private Date horario;
@@ -25,13 +24,14 @@ public class Voo {
     /**
      * Método construtor da classe
      * 
+     * @param id
      * @param origem
      * @param destino
      * @param horario
      * @param aviao 
      */
-    public Voo(String origem, String destino, Date horario, Aviao aviao) {
-        this.codigo = getCODIGO();
+    public Voo(int id, String origem, String destino, Date horario, Aviao aviao) {
+        this.id = id;
         this.origem = origem;
         this.destino = destino;
         this.horario = horario;
@@ -39,21 +39,16 @@ public class Voo {
         this.lugares = aviao.getN_assentos();
     }
     
-    /**
-     * Gera um código para um voo
-     * 
-     * @return int codigo
-     */
-    public static int getCODIGO() {
-        return CODIGO++;
+    public void setId(int id){
+        this.id = id;
     }
     
     /**
      * Getter
      * @return  códito do voo
      */
-    public int getCodigo(){
-        return codigo;
+    public int getId(){
+        return id;
     }
     
     /**

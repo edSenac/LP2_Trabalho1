@@ -5,13 +5,12 @@
  */
 package interfaces;
 
-import Model.Aviao;
-import java.util.List;
+import Model.Voo;
 
 /**
  *
- * @author 631620220
+ * @author Eduardo
  */
-public interface AviaoDAO {
-    public List<Aviao> procurarPorNome(String name);
+public interface VooDAO extends Dao<Voo> {
+
 }

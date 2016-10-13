@@ -23,19 +23,14 @@ public class Aviao {
      * @param nome String
      * @param n_assentos int
      */
-    public Aviao(String nome, int n_assentos) {
+    public Aviao(int codigo, String nome, int n_assentos) {
         this.nome = nome;
         this.n_assentos = n_assentos;
-        this.codigo = getCODIGO();
+        this.codigo = codigo;
     }
     
-    /**
-     * Gera um código para um avião
-     * 
-     * @return int codigo
-     */
-    private static int getCODIGO() {
-        return CODIGO++;
+    public void setCodigo(int codigo){
+        this.codigo = codigo;
     }
     
     /**

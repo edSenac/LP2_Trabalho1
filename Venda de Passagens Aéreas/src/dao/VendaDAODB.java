@@ -5,10 +5,11 @@
  */
 package dao;
 
-import Model.Aviao;
-import interfaces.AviaoDAO;
+import Model.Venda;
+import interfaces.VendaDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,22 +17,25 @@ import java.util.List;
  *
  * @author 631620220
  */
-public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
-
+public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{ {
+    
     @Override
-    public void salvar(Aviao aviao){
-        int id = 0;
+    public void salvar(Venda venda){
+       int id = 0;
         try{
-            String sql = "INSERT INTO aviao (nome, n_assentos) VALUES (?, ?)";
+            String sql = "INSERT INTO venda (id_cliente, id_voo, ) VALUES (?, ?, ?)";
             
             conectarObtendoId(sql);
-            comando.setString(1, aviao.getNome());
-            comando.setInt(2, aviao.getN_assentos());
+            comando.setInt(1, venda.getCliente().getId());
+            comando.setInt(2, venda.getVoo().getId());
+            Timestamp timestamp;
+            timestamp = new Timestamp(venda.getHorario_compra().getTime());
+            comando.setTimestamp(3, timestamp);
             comando.executeUpdate();
             ResultSet resultado = comando.getGeneratedKeys();
             if(resultado.next()){
                 id = resultado.getInt(1);
-                aviao.setCodigo(id);
+                venda.setId(id);
             }else{
                 System.err.println("Erro de Sistema - Nao gerou o id conforme esperado!");
                 throw new BDException("Nao gerou o id conforme esperado!");
@@ -41,17 +45,21 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             throw new BDException(ex);
         }finally {
             fecharConexao();
-        }
+        } 
     }
     
     @Override
-    public void atualizar(Aviao aviao){
+    public void atualizar(Venda venda){
         try{
-            String sql = "UPDATE aviao SET nome=?, n_assentos=? WHERE id=?";
+            String sql = "UPDATE venda SET id_cliente=?, id_voo=?, horario=? WHERE id=?";
             conectar(sql);
-            comando.setString(1, aviao.getNome());
-            comando.setInt(2, aviao.getN_assentos());
-            comando.setInt(3, aviao.getCodigo());
+            comando.setInt(1, venda.getCliente().getId());
+            comando.setInt(2, venda.getVoo().getId());
+            Timestamp timestamp;
+            timestamp = new Timestamp(venda.getHorario_compra().getTime());
+            comando.setTimestamp(3, timestamp);
+            comando.setInt(4, venda.getId());
+
             comando.executeUpdate();
             
         }catch(SQLException ex){
@@ -63,12 +71,12 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
     }
     
     @Override
-    public void deletar(Aviao aviao){
+    public void deletar(Venda venda){
         try {
-            String sql = "DELETE FROM aviao WHERE id = ?";
+            String sql = "DELETE FROM venda WHERE id = ?";
 
             conectar(sql);
-            comando.setInt(1, aviao.getCodigo());
+            comando.setInt(1, venda.getId());
             comando.executeUpdate();
 
         } catch (SQLException ex) {
@@ -80,9 +88,9 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
     }
     
     @Override
-    public List<Aviao> listar(){
-        List<Aviao> listaAvioes = new ArrayList<>();
-        String sql = "SELECT * FROM aviao";
+    public List<Venda> listar(){
+        List<Venda> listaClientes = new ArrayList<>();
+        String sql = "SELECT * FROM venda";
         
         try{
             conectar(sql);
@@ -91,12 +99,13 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             
             while(resultado.next()){
                 int id = resultado.getInt("id");
+                String rg = resultado.getString("rg");
                 String nome = resultado.getString("nome");
-                int n_assentos = resultado.getInt("n_assentos");
+                String telefone = resultado.getString("telefone");
                 
-                Aviao aviao = new Aviao(id, nome, n_assentos);
+                Cliente cliente = new Cliente(id, rg, nome, telefone);
                 
-                listaAvioes.add(aviao);
+                listaClientes.add(cliente);
             }
         }catch(SQLException ex){
             System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
@@ -104,42 +113,11 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
         }finally{
             fecharConexao();
         }
-        return listaAvioes;
     }
     
     @Override
-    public List<Aviao> procurarPorNome(String name) {
-        List<Aviao> listaAvioes = new ArrayList<>();
-        String sql = "SELECT * FROM aviao WHERE nome LIKE ?";
-
-        try {
-            conectar(sql);
-            comando.setString(1, "%" + name + "%");
-            ResultSet resultado = comando.executeQuery();
-
-            while (resultado.next()) {
-                int id = resultado.getInt("id");
-                String nome = resultado.getString("nome");
-                int n_assentos = resultado.getInt("n_assentos");
-
-                Aviao aviao = new Aviao(id, nome, n_assentos);
-
-                listaAvioes.add(aviao);
-
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar os pacientes pelo nome do Banco de Dados!");
-            throw new BDException(ex);
-        } finally {
-            fecharConexao();
-        }
-        return (listaAvioes);
-    }
-
-    @Override
-    public Aviao procurarPorId(int id) {
-        String sql = "SELECT * FROM aviao WHERE id = ?";
+    public Venda procurarPorId(int id){
+        String sql = "SELECT * FROM cliente WHERE id = ?";
 
         try {
             conectar(sql);
@@ -148,12 +126,17 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
+                String rg = resultado.getString("rg");
                 String nome = resultado.getString("nome");
-                int n_assentos = resultado.getInt("n_assentos");
+                String telefone = resultado.getString("telefone");
                 
-                Aviao aviao = new Aviao(id, nome, n_assentos);
+                /*
+                usar DAO para cliente e voo
+                horario = timestamp.getTime() -> vira um java.util.date
+                */
+                Venda venda = new Venda(id, cliente, voo, horario);
 
-                return aviao;
+                return cliente;
             }
         } catch (SQLException ex) {
             System.err.println("Erro de Sistema - Problema ao buscar o paciente pelo id do Banco de Dados!");

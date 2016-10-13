@@ -11,11 +11,12 @@ package Model;
  */
 public class Cliente {
     
+    private int id;
     private String rg;
     private String nome;
     private String telefone;
 
-    public Cliente(String nome, String rg, String telefone) {
+    public Cliente(int id, String nome, String rg, String telefone) {
        this.nome = nome;
        this.rg = rg;
        this.telefone = telefone;
@@ -43,6 +44,14 @@ public class Cliente {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public void setCodigo(int id) {
+        this.id = id;
+    }
+    
+    public int getId(){
+        return id;
     }
     
     

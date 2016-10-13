@@ -5,33 +5,33 @@
  */
 package dao;
 
-import Model.Aviao;
-import interfaces.AviaoDAO;
+import Model.Cliente;
+import interfaces.ClienteDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  *
- * @author 631620220
+ * @author Eduardo
  */
-public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
-
+public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
+    
     @Override
-    public void salvar(Aviao aviao){
+    public void salvar(Cliente cliente){
         int id = 0;
         try{
-            String sql = "INSERT INTO aviao (nome, n_assentos) VALUES (?, ?)";
+            String sql = "INSERT INTO cliente (rg, nome, telefone) VALUES (?, ?, ?)";
             
             conectarObtendoId(sql);
-            comando.setString(1, aviao.getNome());
-            comando.setInt(2, aviao.getN_assentos());
+            comando.setString(1, cliente.getRg());
+            comando.setString(2, cliente.getNome());
+            comando.setString(3, cliente.getTelefone());
             comando.executeUpdate();
             ResultSet resultado = comando.getGeneratedKeys();
             if(resultado.next()){
                 id = resultado.getInt(1);
-                aviao.setCodigo(id);
+                cliente.setCodigo(id);
             }else{
                 System.err.println("Erro de Sistema - Nao gerou o id conforme esperado!");
                 throw new BDException("Nao gerou o id conforme esperado!");
@@ -43,15 +43,17 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             fecharConexao();
         }
     }
-    
+
     @Override
-    public void atualizar(Aviao aviao){
+    public void atualizar(Cliente cliente) {
         try{
-            String sql = "UPDATE aviao SET nome=?, n_assentos=? WHERE id=?";
+            String sql = "UPDATE cliente SET rg=?, nome=?, telefone=? WHERE id=?";
             conectar(sql);
-            comando.setString(1, aviao.getNome());
-            comando.setInt(2, aviao.getN_assentos());
-            comando.setInt(3, aviao.getCodigo());
+            comando.setString(1, cliente.getRg());
+            comando.setString(2, cliente.getNome());
+            comando.setString(3, cliente.getTelefone());
+            comando.setInt(4, cliente.getId());
+
             comando.executeUpdate();
             
         }catch(SQLException ex){
@@ -61,14 +63,14 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             fecharConexao();
         }
     }
-    
+
     @Override
-    public void deletar(Aviao aviao){
+    public void deletar(Cliente cliente) {
         try {
-            String sql = "DELETE FROM aviao WHERE id = ?";
+            String sql = "DELETE FROM cliente WHERE id = ?";
 
             conectar(sql);
-            comando.setInt(1, aviao.getCodigo());
+            comando.setInt(1, cliente.getId());
             comando.executeUpdate();
 
         } catch (SQLException ex) {
@@ -78,11 +80,11 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             fecharConexao();
         }
     }
-    
+
     @Override
-    public List<Aviao> listar(){
-        List<Aviao> listaAvioes = new ArrayList<>();
-        String sql = "SELECT * FROM aviao";
+    public List<Cliente> listar() {
+        List<Cliente> listaClientes = new ArrayList<>();
+        String sql = "SELECT * FROM cliente";
         
         try{
             conectar(sql);
@@ -91,12 +93,13 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             
             while(resultado.next()){
                 int id = resultado.getInt("id");
+                String rg = resultado.getString("rg");
                 String nome = resultado.getString("nome");
-                int n_assentos = resultado.getInt("n_assentos");
+                String telefone = resultado.getString("telefone");
                 
-                Aviao aviao = new Aviao(id, nome, n_assentos);
+                Cliente cliente = new Cliente(id, rg, nome, telefone);
                 
-                listaAvioes.add(aviao);
+                listaClientes.add(cliente);
             }
         }catch(SQLException ex){
             System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
@@ -104,13 +107,13 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
         }finally{
             fecharConexao();
         }
-        return listaAvioes;
+        return listaClientes;
     }
-    
+
     @Override
-    public List<Aviao> procurarPorNome(String name) {
-        List<Aviao> listaAvioes = new ArrayList<>();
-        String sql = "SELECT * FROM aviao WHERE nome LIKE ?";
+    public List<Cliente> procurarPorNome(String name) {
+        List<Cliente> listaClientes = new ArrayList<>();
+        String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
 
         try {
             conectar(sql);
@@ -119,12 +122,13 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
+                String rg = resultado.getString("rg");
                 String nome = resultado.getString("nome");
-                int n_assentos = resultado.getInt("n_assentos");
+                String telefone = resultado.getString("telefone");
 
-                Aviao aviao = new Aviao(id, nome, n_assentos);
+                Cliente cliente = new Cliente(id, rg, nome,telefone);
 
-                listaAvioes.add(aviao);
+                listaClientes.add(cliente);
 
             }
 
@@ -134,12 +138,12 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
         } finally {
             fecharConexao();
         }
-        return (listaAvioes);
+        return listaClientes;
     }
 
     @Override
-    public Aviao procurarPorId(int id) {
-        String sql = "SELECT * FROM aviao WHERE id = ?";
+    public Cliente procurarPorId(int id) {
+        String sql = "SELECT * FROM cliente WHERE id = ?";
 
         try {
             conectar(sql);
@@ -148,12 +152,13 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
+                String rg = resultado.getString("rg");
                 String nome = resultado.getString("nome");
-                int n_assentos = resultado.getInt("n_assentos");
+                String telefone = resultado.getString("telefone");
                 
-                Aviao aviao = new Aviao(id, nome, n_assentos);
+                Cliente cliente = new Cliente(id, rg, nome, telefone);
 
-                return aviao;
+                return cliente;
             }
         } catch (SQLException ex) {
             System.err.println("Erro de Sistema - Problema ao buscar o paciente pelo id do Banco de Dados!");
