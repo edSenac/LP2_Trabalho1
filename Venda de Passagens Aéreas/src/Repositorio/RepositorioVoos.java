@@ -31,7 +31,7 @@ public class RepositorioVoos {
     
     public boolean vooExiste(int codigo){
         for (Voo voo : this.getListaVoos()) {
-            if(codigo == voo.getCodigo()){
+            if(codigo == voo.getId()){
                 return true;
             }
         }
@@ -40,7 +40,7 @@ public class RepositorioVoos {
     
     public Voo getVoo(int codigo){
         for (Voo voo : this.getListaVoos()) {
-            if(codigo == voo.getCodigo()){
+            if(codigo == voo.getId()){
                 return voo;
             }
         }

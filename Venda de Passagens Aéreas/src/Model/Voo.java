@@ -30,13 +30,13 @@ public class Voo {
      * @param horario
      * @param aviao 
      */
-    public Voo(int id, String origem, String destino, Date horario, Aviao aviao) {
+    public Voo(int id, String origem, String destino, Date horario, Aviao aviao, int lugares) {
         this.id = id;
         this.origem = origem;
         this.destino = destino;
         this.horario = horario;
         this.aviao = aviao;
-        this.lugares = aviao.getN_assentos();
+        this.lugares = lugares;
     }
     
     public void setId(int id){

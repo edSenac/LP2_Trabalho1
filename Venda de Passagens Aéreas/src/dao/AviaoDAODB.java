@@ -31,7 +31,7 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             ResultSet resultado = comando.getGeneratedKeys();
             if(resultado.next()){
                 id = resultado.getInt(1);
-                aviao.setCodigo(id);
+                aviao.setId(id);
             }else{
                 System.err.println("Erro de Sistema - Nao gerou o id conforme esperado!");
                 throw new BDException("Nao gerou o id conforme esperado!");
@@ -51,7 +51,7 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             conectar(sql);
             comando.setString(1, aviao.getNome());
             comando.setInt(2, aviao.getN_assentos());
-            comando.setInt(3, aviao.getCodigo());
+            comando.setInt(3, aviao.getId());
             comando.executeUpdate();
             
         }catch(SQLException ex){
@@ -68,7 +68,7 @@ public class AviaoDAODB extends DaoBd<Aviao> implements AviaoDAO{
             String sql = "DELETE FROM aviao WHERE id = ?";
 
             conectar(sql);
-            comando.setInt(1, aviao.getCodigo());
+            comando.setInt(1, aviao.getId());
             comando.executeUpdate();
 
         } catch (SQLException ex) {

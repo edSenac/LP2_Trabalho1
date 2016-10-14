@@ -85,7 +85,7 @@ public class VoosUI {
         do{
             codAviao = Console.scanInt("Codigo do aviao: ");
             // --TODO-- validacao
-        }while(!avioes.existeAviaoCod(codAviao));
+        }while(!avioes.existeAviaoId(codAviao));
         
         Aviao aviao = avioes.getAviao(codAviao);
 

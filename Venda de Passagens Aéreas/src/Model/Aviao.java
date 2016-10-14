@@ -12,8 +12,7 @@ package Model;
  */
 public class Aviao {
     
-    private static int CODIGO = 1;
-    private int codigo;
+    private int id;
     private String nome;
     private int n_assentos;
 
@@ -23,22 +22,22 @@ public class Aviao {
      * @param nome String
      * @param n_assentos int
      */
-    public Aviao(int codigo, String nome, int n_assentos) {
+    public Aviao(int id, String nome, int n_assentos) {
         this.nome = nome;
         this.n_assentos = n_assentos;
-        this.codigo = codigo;
+        this.id = id;
     }
     
-    public void setCodigo(int codigo){
-        this.codigo = codigo;
+    public void setId(int codigo){
+        this.id = id;
     }
     
     /**
      * Getter
      * @return int codigo do avião
      */
-    public int getCodigo(){
-        return this.codigo;
+    public int getId(){
+        return this.id;
     }
     
     /**

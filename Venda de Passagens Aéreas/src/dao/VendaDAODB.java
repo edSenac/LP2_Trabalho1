@@ -5,19 +5,22 @@
  */
 package dao;
 
+import Model.Cliente;
 import Model.Venda;
+import Model.Voo;
 import interfaces.VendaDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  *
  * @author 631620220
  */
-public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{ {
+public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
     
     @Override
     public void salvar(Venda venda){
@@ -89,7 +92,7 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{ {
     
     @Override
     public List<Venda> listar(){
-        List<Venda> listaClientes = new ArrayList<>();
+        List<Venda> listaVendas = new ArrayList<>();
         String sql = "SELECT * FROM venda";
         
         try{
@@ -99,13 +102,19 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{ {
             
             while(resultado.next()){
                 int id = resultado.getInt("id");
-                String rg = resultado.getString("rg");
-                String nome = resultado.getString("nome");
-                String telefone = resultado.getString("telefone");
+                int idCliente = resultado.getInt("id_cliente");
+                int idVoo = resultado.getInt("id_voo");
+                Date horario = resultado.getTimestamp("horario");
                 
-                Cliente cliente = new Cliente(id, rg, nome, telefone);
+                ClienteDAODB clienteDb = new ClienteDAODB();
+                Cliente cliente = clienteDb.procurarPorId(idCliente);
                 
-                listaClientes.add(cliente);
+                VooDAODB vooDb = new VooDAODB();
+                Voo voo = vooDb.procurarPorId(idVoo);
+                
+                Venda venda = new Venda(id, cliente, voo, horario);
+                
+                listaVendas.add(venda);
             }
         }catch(SQLException ex){
             System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
@@ -113,11 +122,12 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{ {
         }finally{
             fecharConexao();
         }
+        return listaVendas;
     }
     
     @Override
     public Venda procurarPorId(int id){
-        String sql = "SELECT * FROM cliente WHERE id = ?";
+        String sql = "SELECT * FROM venda WHERE id = ?";
 
         try {
             conectar(sql);
@@ -126,17 +136,19 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{ {
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                String rg = resultado.getString("rg");
-                String nome = resultado.getString("nome");
-                String telefone = resultado.getString("telefone");
+                int idCliente = resultado.getInt("id_cliente");
+                int idVoo = resultado.getInt("id_voo");
+                Date horario = resultado.getTimestamp("horario");
                 
-                /*
-                usar DAO para cliente e voo
-                horario = timestamp.getTime() -> vira um java.util.date
-                */
+                ClienteDAODB clienteDao = new ClienteDAODB();
+                Cliente cliente = clienteDao.procurarPorId(idCliente);
+                
+                VooDAODB vooDb = new VooDAODB();
+                Voo voo = vooDb.procurarPorId(idVoo);
+                
                 Venda venda = new Venda(id, cliente, voo, horario);
 
-                return cliente;
+                return venda;
             }
         } catch (SQLException ex) {
             System.err.println("Erro de Sistema - Problema ao buscar o paciente pelo id do Banco de Dados!");
