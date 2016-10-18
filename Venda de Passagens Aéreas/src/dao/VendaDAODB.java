@@ -158,4 +158,18 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
         }
         return null;
     }
+
+    public boolean cadastraVenda(Cliente cliente, Voo voo) {
+        int lugares = voo.getLugares();
+        if(lugares > 0){
+            this.salvar(new Venda(cliente, voo, new Date()));
+            voo.setLugares(lugares -1);
+            System.out.println("Venda cadastrada com sucesso!");
+            return true;
+        }
+        else{
+            System.out.println("Não há mais lugares disponíveis nesse vôo!");
+            return false;
+        }
+    }
 }

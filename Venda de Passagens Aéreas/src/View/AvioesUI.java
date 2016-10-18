@@ -6,11 +6,11 @@
 package View;
 
 import Model.Aviao;
-import Repositorio.RepositorioAvioes;
 import util.Console;
 import Menu.AvioesMenu;
 import java.util.InputMismatchException;
 import util.Validacao;
+import dao.AviaoDAODB;
 
 /**
  * Interface para as classes @see Aviao.java e @see RepositorioAvioes.java
@@ -19,17 +19,7 @@ import util.Validacao;
  */
 public class AvioesUI {
  
-    private RepositorioAvioes lista;
-    private Validacao valida;
-    
-    /**
-     * Método construtor da classe
-     * 
-     * @param lista RepositorioAvioes
-     */
-    public AvioesUI(RepositorioAvioes lista){
-        this.lista = lista;
-    }
+    private AviaoDAODB lista = new AviaoDAODB();
     
     /**
      * Método utilizado para interagir com o usuário
@@ -52,6 +42,8 @@ public class AvioesUI {
                 case AvioesMenu.OP_LISTAR:
                     mostrarAvioes();
                     break;
+                case AvioesMenu.OP_REMOVER:
+                    deletarAviao();
                 case AvioesMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
                     break;
@@ -71,15 +63,14 @@ public class AvioesUI {
         do{
             nome = Console.scanString("Nome: ");
         }while(!valida.validaNome(nome));
-        // --TODO-- validacao
-        if(lista.existeAviao(nome)){
+        if(lista.procurarPorNome(nome) != null){
             System.out.println("Aviao " + nome + " já cadastrado!");
         }else{
             int n_assentos;
             do{
                 n_assentos = Console.scanInt("Numero de assentos: ");
             }while(n_assentos < 1);
-            lista.addAviao(new Aviao(nome, n_assentos));
+            lista.salvar(new Aviao(nome, n_assentos));
             System.out.println("Aviao " + nome + " cadastrado com sucesso!");
         }
         
@@ -90,13 +81,25 @@ public class AvioesUI {
      */
     public void mostrarAvioes(){
         System.out.println("-----------------------------\n");
-        System.out.println(String.format("%-20s", "CODIGO") + "\t"
+        System.out.println(String.format("%-20s", "ID") + "\t"
                 + String.format("%-20s", "|NOME") + "\t"
                 + String.format("%-20s", "|NUMERO DE ASSENTOS"));
-        for (Aviao aviao : lista.getListaAvioes()) {
-            System.out.println(String.format("%-20s", aviao.getCodigo()) + "\t"
+        for (Aviao aviao : lista.listar()) {
+            System.out.println(String.format("%-20s", aviao.getId()) + "\t"
                 + String.format("%-20s", "|" + aviao.getNome()) + "\t"
                 + String.format("%-20s", "|" + aviao.getN_assentos()) + "\t");
+        }
+    }
+
+    private void deletarAviao() {
+        this.mostrarAvioes();
+        int id = Console.scanInt("Digite o id do avião que quer remover: ");
+        Aviao aviao = lista.procurarPorId(id);
+        if(aviao != null) {
+            lista.deletar(aviao);
+            System.out.println("Avião removido com sucesso.");
+        } else {
+            System.out.println("Avião não encontrado.");
         }
     }
 }

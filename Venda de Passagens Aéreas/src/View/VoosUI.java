@@ -7,8 +7,6 @@ package View;
 
 import Model.Voo;
 import Model.Aviao;
-import Repositorio.RepositorioAvioes;
-import Repositorio.RepositorioVoos;
 import util.Console;
 import util.DateUtil;
 import util.Validacao;
@@ -16,6 +14,8 @@ import Menu.VoosMenu;
 import java.util.Date;
 import java.text.ParseException;
 import java.util.InputMismatchException;
+import dao.AviaoDAODB;
+import dao.VooDAODB;
 
 /**
  *
@@ -23,14 +23,11 @@ import java.util.InputMismatchException;
  */
 public class VoosUI {
     
-    private RepositorioVoos lista;
+    private VooDAODB lista;
+    private AviaoDAODB avioes;
     private Validacao valida = new Validacao();
     
-    public VoosUI(RepositorioVoos lista){
-        this.lista = lista;
-    }
-    
-    public void executar(RepositorioAvioes avioes){
+    public void executar(){
         int opcao = 0;
         do {
         System.out.println(VoosMenu.getOpcoes());
@@ -42,7 +39,7 @@ public class VoosUI {
             }
             switch (opcao) {
                 case VoosMenu.OP_CADASTRAR:
-                    cadastrarVoo(avioes);
+                    cadastrarVoo();
                     break;
                 case VoosMenu.OP_LISTAR:
                     mostrarVoos();
@@ -57,7 +54,7 @@ public class VoosUI {
         } while (opcao != VoosMenu.OP_VOLTAR);
     }
     
-    public void cadastrarVoo(RepositorioAvioes avioes){
+    public void cadastrarVoo(){
         String origem;
         String destino;
         String horarioStr;
@@ -79,18 +76,17 @@ public class VoosUI {
             return;
         }
         
-        AvioesUI avioesUI = new AvioesUI(avioes);
+        AvioesUI avioesUI = new AvioesUI();
         avioesUI.mostrarAvioes();
         int codAviao;
         do{
             codAviao = Console.scanInt("Codigo do aviao: ");
-            // --TODO-- validacao
-        }while(!avioes.existeAviaoId(codAviao));
+        }while(avioes.procurarPorId(codAviao) == null);
         
-        Aviao aviao = avioes.getAviao(codAviao);
+        Aviao aviao = avioes.procurarPorId(codAviao);
 
         if(horario != null){
-            lista.addVoo(new Voo(origem, destino, horario, aviao));
+            lista.salvar(new Voo(origem, destino, horario, aviao, aviao.getN_assentos()));
             System.out.println("Voo cadastrado com sucesso!");
         }
     }
@@ -103,9 +99,9 @@ public class VoosUI {
                 + String.format("%-20s", "|DESTINO") + "\t"
                 + String.format("%-30s", "|HORARIO") + "\t"
                 + String.format("%-20s", "|LUGARES DISPONIVEIS"));
-        for (Voo voo : lista.getListaVoos()) {
+        for (Voo voo : lista.listar()) {
             Aviao aviao = voo.getAviao();
-            System.out.println(String.format("%-20s", voo.getCodigo()) + "\t"
+            System.out.println(String.format("%-20s", voo.getId()) + "\t"
                 + String.format("%-20s", "|" + aviao.getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"

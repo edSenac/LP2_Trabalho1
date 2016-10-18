@@ -23,9 +23,14 @@ public class Aviao {
      * @param n_assentos int
      */
     public Aviao(int id, String nome, int n_assentos) {
+        this.id = id;
         this.nome = nome;
         this.n_assentos = n_assentos;
-        this.id = id;
+    }
+    
+    public Aviao(String nome, int n_assentos){
+        this.nome = nome;
+        this.n_assentos = n_assentos;
     }
     
     public void setId(int codigo){

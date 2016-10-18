@@ -17,10 +17,18 @@ public class Cliente {
     private String telefone;
 
     public Cliente(int id, String nome, String rg, String telefone) {
+       this.id = id;
        this.nome = nome;
        this.rg = rg;
        this.telefone = telefone;
     }
+
+    public Cliente(String nome, String rg, String telefone) {
+       this.nome = nome;
+       this.rg = rg;
+       this.telefone = telefone;
+    }
+    
 
     public String getRg() {
         return rg;

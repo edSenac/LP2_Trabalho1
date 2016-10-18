@@ -168,4 +168,32 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
         }
         return null;
     }
+
+    @Override
+    public Cliente procurarPorRg(String rg) {
+        String sql = "SELECT * FROM cliente WHERE rg = ?";
+
+        try {
+            conectar(sql);
+            comando.setString(1, rg);
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                int id = resultado.getInt("id");
+                String nome = resultado.getString("nome");
+                String telefone = resultado.getString("telefone");
+                
+                Cliente cliente = new Cliente(id, rg, nome, telefone);
+
+                return cliente;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar o paciente pelo id do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+        return null;
+    }
 }

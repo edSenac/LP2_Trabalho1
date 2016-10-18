@@ -13,55 +13,6 @@ import java.util.Date;
  */
 public class MainUI {
     
-    private RepositorioAvioes listaAvioes;
-    private RepositorioClientes listaClientes;
-    private RepositorioVendas listaVendas;
-    private RepositorioVoos listaVoos;
-    
-    public MainUI() {
-        
-        listaAvioes = new RepositorioAvioes();
-        listaClientes = new RepositorioClientes();
-        listaVendas = new RepositorioVendas();
-        listaVoos = new RepositorioVoos();
-        
-        inicializar();
-    }
-    /**
-     * Inicializa o programa com alguns dados para teste:
-     *     
-     *      Avião: 
-     *          nome: Aviao,
-     *          numero de assentos: 1
-     *      Cliente: 
-     *          nome: Cliente, 
-     *          rg 1234567890,
-     *          telefone 99999999
-     *      Voo: 
-     *          Origem: POA
-     *          Destino: BSB,
-     *          Aviao: Aviao,
-     *          Horário: data e hora da execução do método
-     *      Venda:
-     *          Cliente: Cliente,
-     *          Voo: Voo cadastrado acima,
-     *          Data/hora da venda: data e hora da execução do método
-     * 
-     */
-    private void inicializar(){
-        Aviao aviao = new Aviao("Aviao", 1);
-        listaAvioes.addAviao(aviao);
-        
-        Cliente cliente = new Cliente("Cliente", "1234567890", "99999999");
-        listaClientes.addCliente(cliente);
-        
-        Voo voo = new Voo("POA", "BSB", new Date(), aviao);
-        listaVoos.addVoo(voo);
-        
-        Venda venda = new Venda(cliente, voo, new Date());
-        listaVendas.addVenda(venda);
-    }
-    
     public void executar() {
 
         int opcao = 0;
@@ -75,19 +26,19 @@ public class MainUI {
             }
             switch (opcao) {
                 case MainMenu.OP_CLIENTES:
-                    new ClientesUI(listaClientes).executar();
+                    new ClientesUI().executar();
                     break;
                 case MainMenu.OP_AVIOES:
-                    new AvioesUI(listaAvioes).executar();
+                    new AvioesUI().executar();
                     break;
                 case MainMenu.OP_VOOS:
-                    new VoosUI(listaVoos).executar(listaAvioes);
+                    new VoosUI().executar();
                     break;
                 case MainMenu.OP_VENDAS:
-                    new VendasUI(listaVendas).executar(listaVoos, listaClientes);
+                    new VendasUI().executar();
                     break;
                 case MainMenu.OP_RELATORIOS:
-                    new RelatoriosUI(listaAvioes, listaClientes, listaVendas, listaVoos).executar();
+                    new RelatoriosUI().executar();
                     break;
                 case MainMenu.OP_SAIR:
                     System.out.println("Aplicação finalizada!!!");

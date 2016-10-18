@@ -39,6 +39,14 @@ public class Voo {
         this.lugares = lugares;
     }
     
+    public Voo(String origem, String destino, Date horario, Aviao aviao, int lugares) {
+        this.origem = origem;
+        this.destino = destino;
+        this.horario = horario;
+        this.aviao = aviao;
+        this.lugares = lugares;
+    }
+    
     public void setId(int id){
         this.id = id;
     }

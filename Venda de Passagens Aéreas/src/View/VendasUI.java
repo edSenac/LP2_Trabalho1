@@ -8,9 +8,9 @@ package View;
 import Model.Venda;
 import Model.Voo;
 import Model.Cliente;
-import Repositorio.RepositorioVendas;
-import Repositorio.RepositorioVoos;
-import Repositorio.RepositorioClientes;
+import dao.ClienteDAODB;
+import dao.VooDAODB;
+import dao.VendaDAODB;
 import util.Console;
 import Menu.VendasMenu;
 import java.util.Date;
@@ -21,14 +21,12 @@ import java.util.InputMismatchException;
  * @author Eduardo
  */
 public class VendasUI {
- 
-    private RepositorioVendas lista;
     
-    public VendasUI(RepositorioVendas lista){
-        this.lista = lista;
-    }
+    private ClienteDAODB clientes;
+    private VooDAODB voos;
+    private VendaDAODB lista;
     
-    public void executar(RepositorioVoos voos, RepositorioClientes clientes){
+    public void executar(){
         int opcao = 0;
         do {
          System.out.println(VendasMenu.getOpcoes());
@@ -40,7 +38,7 @@ public class VendasUI {
             }
             switch (opcao) {
                 case VendasMenu.OP_CADASTRAR:
-                    cadastrarVenda(voos, clientes);
+                    cadastrarVenda();
                     break;
                 case VendasMenu.OP_LISTAR:
                     mostrarVendas();
@@ -61,51 +59,27 @@ public class VendasUI {
      * @param voos
      * @param clientes 
      */
-    public boolean cadastrarVenda(RepositorioVoos voos, RepositorioClientes clientes){
+    public boolean cadastrarVenda(){
         
-        ClientesUI clientesUI = new ClientesUI(clientes);
+        ClientesUI clientesUI = new ClientesUI();
         clientesUI.mostrarClientes();
         String rg;
         do{
             rg = Console.scanString("RG: ");
-        }while(!clientes.clienteExiste(rg));
+        }while(clientes.procurarPorRg(rg) == null);
         
-        Cliente cliente = clientes.getCliente(rg);
+        Cliente cliente = clientes.procurarPorRg(rg);
         
-        VoosUI voosUI = new VoosUI(voos);
+        VoosUI voosUI = new VoosUI();
         voosUI.mostrarVoos();
         int codigo;
         do{
             codigo = Console.scanInt("Codigo do Voo: ");
-        }while(!voos.vooExiste(codigo));
+        }while(voos.procurarPorId(codigo) == null);
         
-        Voo voo = voos.getVoo(codigo);
+        Voo voo = voos.procurarPorId(codigo);
         
         return lista.cadastraVenda(cliente, voo);
-        
-        /*
-        int lugares = voo.getLugares();
-        if(lugares > 0){
-            lista.addVenda(new Venda(cliente, voo, new Date()));
-            voo.setLugares(lugares -1);
-            System.out.println("Venda cadastrada com sucesso!");
-            return true;
-        }else{
-            System.out.println("Não há mais lugares disponíveis nesse vôo!");
-            return false;
-        }
-        */
-        
-        
-        /*
-        int assentosDisponiveis = voo.getAviao().getN_assentos();
-        if(assentosDisponiveis > 0){ // fazer verificaçã na venda
-            // não considera que um avião tem mais de um voo
-            voo.getAviao().setN_assentos(assentosDisponiveis -1);
-            // voo deve ter um parametro com o numero de assentos livres/ocupados
-            */
-            
-            
         
     }
     
@@ -115,7 +89,7 @@ public class VendasUI {
                 + String.format("%-20s", "|ORIGEM VOO") + "\t"
                 + String.format("%-20s", "|DESTINO VOO") + "\t"
                 + String.format("%-20s", "|DATA-HORA COMPRA"));
-        for (Venda venda : lista.getListaVendas()) {
+        for (Venda venda : lista.listar()) {
             Voo voo = venda.getVoo();
             Cliente cliente = venda.getCliente();
             try{

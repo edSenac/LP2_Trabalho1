@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface ClienteDAO extends Dao<Cliente>{
     public List<Cliente> procurarPorNome(String name);
+    public Cliente procurarPorRg(String rg);
 }

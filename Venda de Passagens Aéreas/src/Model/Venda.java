@@ -26,6 +26,12 @@ public class Venda {
         this.horario_compra = horario_compra;
     }
 
+    public Venda(Cliente cliente, Voo voo, Date horario_compra) {
+        this.cliente = cliente;
+        this.voo = voo;
+        this.horario_compra = horario_compra;
+    }
+    
     public Cliente getCliente() {
         return cliente;
     }
