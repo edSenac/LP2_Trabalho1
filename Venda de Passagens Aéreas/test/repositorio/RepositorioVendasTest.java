@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Repositorio;
+package repositorio;
 
-import Model.Cliente;
-import Model.Venda;
-import Model.Voo;
-import Model.Aviao;
+import repositorio.RepositorioVendas;
+import model.Cliente;
+import model.Venda;
+import model.Voo;
+import model.Aviao;
 import java.util.List;
 import java.util.Date;
 import org.junit.After;

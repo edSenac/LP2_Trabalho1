@@ -5,7 +5,7 @@
  */
 package dao;
 
-import Model.Aviao;
+import model.Aviao;
 import interfaces.AviaoDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;

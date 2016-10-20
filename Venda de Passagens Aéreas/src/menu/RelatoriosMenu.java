@@ -3,28 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Menu;
+package menu;
 
 /**
  *
  * @author Eduardo
  */
-public class VoosMenu {
- 
-    public static final int OP_CADASTRAR = 1;
-    public static final int OP_LISTAR = 2;
-    public static final int OP_REMOVER = 3;
-    public static final int OP_ATUALIZAR = 4;
+public class RelatoriosMenu {
+    
+    public static final int REL_CLIENTE = 1;
+    public static final int REL_PASSAGEIRO = 2;
+    public static final int REL_ORIGEM = 3;
+    public static final int REL_DESTINO = 4;
     public static final int OP_VOLTAR = 0;
 
     public static String getOpcoes() {
         return ("\n--------------------------------------\n"
-                + "1- Cadastrar Voo\n"
-                + "2- Listar Voos\n"
-                + "3- Remover Voo\n"
-                + "4- Atualizar Voo\n"
+                + "1- por Cliente\n"
+                + "2- por Passageiro\n"
+                + "3- Voos por Origem\n"
+                + "4- Voos por Destino\n"
                 + "0- Voltar"
                 + "\n--------------------------------------");
     }   
-    
+      
 }

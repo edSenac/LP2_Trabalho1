@@ -5,7 +5,7 @@
  */
 package interfaces;
 
-import Model.Aviao;
+import model.Aviao;
 import java.util.List;
 
 /**

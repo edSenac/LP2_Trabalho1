@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Model.Aviao;
-import Model.Cliente;
-import Model.Venda;
-import Model.Voo;
+import model.Aviao;
+import model.Cliente;
+import model.Venda;
+import model.Voo;
 import dao.*;
-import Menu.RelatoriosMenu;
+import menu.RelatoriosMenu;
 import java.util.InputMismatchException;
 import util.Console;
 import util.Validacao;

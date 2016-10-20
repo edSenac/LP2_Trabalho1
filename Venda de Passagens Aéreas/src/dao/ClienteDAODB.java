@@ -5,7 +5,7 @@
  */
 package dao;
 
-import Model.Cliente;
+import model.Cliente;
 import interfaces.ClienteDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -97,7 +97,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
                 String nome = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
                 
-                Cliente cliente = new Cliente(id, rg, nome, telefone);
+                Cliente cliente = new Cliente(id, nome, rg, telefone);
                 
                 listaClientes.add(cliente);
             }
@@ -156,7 +156,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
                 String nome = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
                 
-                Cliente cliente = new Cliente(id, rg, nome, telefone);
+                Cliente cliente = new Cliente(id,nome, rg, telefone);
 
                 return cliente;
             }
@@ -184,7 +184,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
                 String nome = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
                 
-                Cliente cliente = new Cliente(id, rg, nome, telefone);
+                Cliente cliente = new Cliente(id, nome, rg, telefone);
 
                 return cliente;
             }

@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Model.Venda;
-import Model.Voo;
-import Model.Cliente;
+import model.Venda;
+import model.Voo;
+import model.Cliente;
 import dao.ClienteDAODB;
 import dao.VooDAODB;
 import dao.VendaDAODB;
 import util.Console;
-import Menu.VendasMenu;
+import menu.VendasMenu;
 import java.util.Date;
 import java.util.InputMismatchException;
 
@@ -45,8 +45,10 @@ public class VendasUI {
                     break;
                 case VendasMenu.OP_REMOVER:
                     removerVenda();
+                    break;
                 case VendasMenu.OP_ATUALIZAR:
                     atualizarVenda();
+                    break;
                 case VendasMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
                     break;
@@ -87,7 +89,8 @@ public class VendasUI {
     
     public void mostrarVendas(){
         System.out.println("-----------------------------\n");
-        System.out.println(String.format("%-20s", "|NOME CLIENTE") + "\t"
+        System.out.println(String.format("%-20s", "ID") + "\t"
+                + String.format("%-20s", "CLIENTE") + "\t"
                 + String.format("%-20s", "|ORIGEM VOO") + "\t"
                 + String.format("%-20s", "|DESTINO VOO") + "\t"
                 + String.format("%-20s", "|DATA-HORA COMPRA"));
@@ -95,7 +98,8 @@ public class VendasUI {
             Voo voo = venda.getVoo();
             Cliente cliente = venda.getCliente();
             try{
-                System.out.println(String.format("%-20s", cliente.getNome()) + "\t"
+                System.out.println(String.format("%-20s", venda.getId()) + "\t"
+                + String.format("%-20s", cliente.getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"
                 + String.format("%-20s", "|" + venda.getHorario_compra()) + "\t");
@@ -142,5 +146,7 @@ public class VendasUI {
         Voo voo = voos.procurarPorId(id_voo);
         
         lista.atualizar(new Venda(id, cliente, voo, venda.getHorario_compra()));
+        
+        System.out.println("Venda atualizada com sucesso!");
     }
 }

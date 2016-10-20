@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Menu;
+package menu;
 
 /**
  *
  * @author Eduardo
  */
-public class VendasMenu {
+public class ClientesMenu {
     
     public static final int OP_CADASTRAR = 1;
     public static final int OP_LISTAR = 2;
@@ -19,12 +19,12 @@ public class VendasMenu {
 
     public static String getOpcoes() {
         return ("\n--------------------------------------\n"
-                + "1- Cadastrar Venda\n"
-                + "2- Listar Vendas\n"
-                + "3- Remover Venda\n"
-                + "4- Atualizar Venda\n"
+                + "1- Cadastrar Cliente\n"
+                + "2- Listar Clientes\n"   
+                + "3- Remover Cliente\n"
+                + "4- Atualizar Cliente\n"
                 + "0- Voltar"
                 + "\n--------------------------------------");
-    }   
+    }
     
 }

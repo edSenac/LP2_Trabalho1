@@ -5,7 +5,7 @@
  */
 package interfaces;
 
-import Model.Voo;
+import model.Voo;
 
 /**
  *

@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Model.Voo;
-import Model.Aviao;
+import model.Voo;
+import model.Aviao;
 import util.Console;
 import util.DateUtil;
 import util.Validacao;
-import Menu.VoosMenu;
+import menu.VoosMenu;
 import java.util.Date;
 import java.text.ParseException;
 import java.util.InputMismatchException;
@@ -46,8 +46,10 @@ public class VoosUI {
                     break;
                 case VoosMenu.OP_REMOVER:
                     removerVoo();
+                    break;
                 case VoosMenu.OP_ATUALIZAR:
                     atualizarVoo();
+                    break;
                 case VoosMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
                     break;
@@ -115,14 +117,23 @@ public class VoosUI {
     }
 
     public void removerVoo() {
-        this.mostrarVoos();
-        int id = Console.scanInt("Digite o id do voo que quer remover: ");
-        Voo voo = lista.procurarPorId(id);
-        if(voo != null) {
-            lista.deletar(voo);
-            System.out.println("Voo removido com sucesso.");
-        } else {
-            System.out.println("Voo não encontrado.");
+        System.out.println("Essa operação implica na remoção das vendas do voo.");
+        String continua = "n";
+        do{
+            continua = Console.scanString("Deseja prosseguir? (S/N): ").toLowerCase();
+        }while(continua.equals("s") || continua.equals("n"));
+        if(continua.equals("s")){
+            this.mostrarVoos();
+            int id = Console.scanInt("Digite o id do voo que quer remover: ");
+            Voo voo = lista.procurarPorId(id);
+            if(voo != null) {
+                lista.deletar(voo);
+                System.out.println("Voo removido com sucesso.");
+            } else {
+                System.out.println("Voo não encontrado.");
+            }
+        }else{
+            System.out.println("Abortando operação...");
         }
     }
 

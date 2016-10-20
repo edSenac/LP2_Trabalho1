@@ -1,11 +1,9 @@
-package View;
+package view;
 
 import util.Console;
-import Menu.MainMenu;
-import Repositorio.*;
+import menu.MainMenu;
 import java.util.InputMismatchException;
 
-import Model.*;
 import java.util.Date;
 /**
  *

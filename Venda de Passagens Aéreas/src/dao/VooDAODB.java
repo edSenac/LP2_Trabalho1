@@ -5,8 +5,8 @@
  */
 package dao;
 
-import Model.Aviao;
-import Model.Voo;
+import model.Aviao;
+import model.Voo;
 import interfaces.VooDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,6 +59,22 @@ public class VooDAODB extends DaoBd<Voo> implements VooDAO{
 
             conectar(sql);
             comando.setInt(1, voo.getId());
+            comando.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao deletar paciente no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+    }
+    
+    public void deletarPorAviao(int id_aviao) {
+       try {
+            String sql = "DELETE FROM voo WHERE id_aviao = ?";
+
+            conectar(sql);
+            comando.setInt(1, id_aviao);
             comando.executeUpdate();
 
         } catch (SQLException ex) {

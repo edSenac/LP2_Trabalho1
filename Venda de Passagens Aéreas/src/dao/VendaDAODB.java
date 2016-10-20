@@ -5,9 +5,9 @@
  */
 package dao;
 
-import Model.Cliente;
-import Model.Venda;
-import Model.Voo;
+import model.Cliente;
+import model.Venda;
+import model.Voo;
 import interfaces.VendaDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +21,7 @@ import java.util.List;
  * @author 631620220
  */
 public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
+    private VooDAODB voos = new VooDAODB();
     
     @Override
     public void salvar(Venda venda){
@@ -83,7 +84,55 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
             comando.executeUpdate();
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao deletar paciente no Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao deletar venda no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+    }
+    
+    public void deletarPorCliente(int id_cliente){
+        try {
+            String sql = "DELETE FROM venda WHERE id_cliente = ?";
+
+            conectar(sql);
+            comando.setInt(1, id_cliente);
+            comando.executeUpdate();
+            System.out.println("Venda(s) removida(s) com sucesso.");
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao deletar venda no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+    }    
+    public void deletarPorAviao(int id_aviao){
+        try {
+            String sql = "DELETE FROM venda WHERE id_aviao = ?";
+
+            conectar(sql);
+            comando.setInt(1, id_aviao);
+            comando.executeUpdate();
+            System.out.println("Venda(s) removida(s) com sucesso.");
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao deletar venda no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+    }
+    
+        
+    public void deletarPorVoo(int id_voo){
+        try {
+            String sql = "DELETE FROM venda WHERE id_voo = ?";
+
+            conectar(sql);
+            comando.setInt(1, id_voo);
+            comando.executeUpdate();
+            System.out.println("Venda(s) removida(s) com sucesso.");
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao deletar venda no Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
@@ -164,6 +213,7 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
         if(lugares > 0){
             this.salvar(new Venda(cliente, voo, new Date()));
             voo.setLugares(lugares -1);
+            voos.atualizar(voo);
             System.out.println("Venda cadastrada com sucesso!");
         }
         else{

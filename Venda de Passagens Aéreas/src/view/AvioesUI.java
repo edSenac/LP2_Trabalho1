@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Model.Aviao;
+import model.Aviao;
 import util.Console;
-import Menu.AvioesMenu;
+import menu.AvioesMenu;
 import java.util.InputMismatchException;
 import util.Validacao;
 import dao.AviaoDAODB;
+import dao.VooDAODB;
 
 /**
  * Interface para as classes @see Aviao.java e @see RepositorioAvioes.java
@@ -20,6 +21,7 @@ import dao.AviaoDAODB;
 public class AvioesUI {
  
     private AviaoDAODB lista = new AviaoDAODB();
+    private VooDAODB voos = new VooDAODB();
     
     /**
      * Método utilizado para interagir com o usuário
@@ -44,6 +46,10 @@ public class AvioesUI {
                     break;
                 case AvioesMenu.OP_REMOVER:
                     removerAviao();
+                    break;
+                case AvioesMenu.OP_ATUALIZAR:
+                    atualizarAviao();
+                    break;
                 case AvioesMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
                     break;
@@ -92,14 +98,28 @@ public class AvioesUI {
     }
 
     private void removerAviao() {
-        this.mostrarAvioes();
-        int id = Console.scanInt("Digite o id do avião que quer remover: ");
-        Aviao aviao = lista.procurarPorId(id);
-        if(aviao != null) {
-            lista.deletar(aviao);
-            System.out.println("Avião removido com sucesso.");
-        } else {
-            System.out.println("Avião não encontrado.");
+        System.out.println("Essa operação implica na remoção dos voos e vendas do aviao.");
+        String continua = "n";
+        do{
+            continua = Console.scanString("Deseja prosseguir? (S/N): ").toLowerCase();
+        }while(continua.equals("s") || continua.equals("n"));
+        if(continua.equals("s")){
+            this.mostrarAvioes();
+            int id = Console.scanInt("Digite o id do avião que quer remover: ");
+            Aviao aviao = lista.procurarPorId(id);
+            if(aviao != null) {
+                lista.deletar(aviao);
+                System.out.println("Avião removido com sucesso.");
+                voos.deletarPorAviao(id);
+            } else {
+                System.out.println("Avião não encontrado.");
+            }
+        }else{
+            System.out.println("Abortando operação...");
         }
+    }
+
+    public void atualizarAviao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

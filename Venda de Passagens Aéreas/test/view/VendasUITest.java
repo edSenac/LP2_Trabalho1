@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Repositorio.RepositorioClientes;
-import Repositorio.RepositorioVoos;
-import Repositorio.RepositorioVendas;
-import Model.Cliente;
-import Model.Voo;
-import Model.Aviao;
+import view.VendasUI;
+import repositorio.RepositorioClientes;
+import repositorio.RepositorioVoos;
+import repositorio.RepositorioVendas;
+import model.Cliente;
+import model.Voo;
+import model.Aviao;
 import java.util.Date;
 import org.junit.Test;
 import static org.junit.Assert.*;

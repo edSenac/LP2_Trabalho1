@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package view;
 
-import Model.Cliente;
+import model.Cliente;
 import util.Console;
 import util.Validacao;
-import Menu.ClientesMenu;
+import menu.ClientesMenu;
 import java.util.InputMismatchException;
 import dao.ClienteDAODB;
+import dao.VendaDAODB;
 
 /**
  *
@@ -19,6 +20,7 @@ import dao.ClienteDAODB;
 public class ClientesUI {
     
     private ClienteDAODB lista = new ClienteDAODB();
+    private VendaDAODB vendas = new VendaDAODB();
     private Validacao valida = new Validacao();
     
     public void executar() {
@@ -41,6 +43,10 @@ public class ClientesUI {
                     break;
                 case ClientesMenu.OP_REMOVER:
                     removerCliente();
+                    break;
+                case ClientesMenu.OP_ATUALIZAR:
+                    atualizarCliente();
+                    break;
                 case ClientesMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
                     break;
@@ -90,14 +96,57 @@ public class ClientesUI {
     }
     
     public void removerCliente() {
+        System.out.println("Essa operação implica na remoção das vendas do cliente.");
+        String continua = "n";
+        do{
+            continua = Console.scanString("Deseja prosseguir? (S/N): ").toLowerCase();
+        }while(continua.equals("s") || continua.equals("n"));
+        if(continua.equals("s")){
+            this.mostrarClientes();
+            int id = Console.scanInt("Digite o id do cliente que quer remover: ");
+            Cliente cliente = lista.procurarPorId(id);
+            if(cliente != null) {
+                lista.deletar(cliente);
+                System.out.println("Cliente removido com sucesso.");
+                vendas.deletarPorCliente(id);
+            } else {
+                System.out.println("Cliente não encontrado.");
+            }
+        }else{
+            System.out.println("Abortando operação...");
+        }
+        
+    }
+
+    public void atualizarCliente() {
+        String rg;
         this.mostrarClientes();
-        int id = Console.scanInt("Digite o id do cliente que quer remover: ");
+        int id = Console.scanInt("Digite o id do cliente que quer atualizar: ");
         Cliente cliente = lista.procurarPorId(id);
         if(cliente != null) {
-            lista.deletar(cliente);
-            System.out.println("Cliente removido com sucesso.");
-        } else {
+            do{
+                rg = Console.scanString("RG: ");
+            }while(!valida.validaRg(rg));
+            // se encontrar cliente com o mesmo rg e não for o mesmo que quer atualizar
+            if ((lista.procurarPorRg(rg) != null)) {
+                if(id != lista.procurarPorRg(rg).getId()){
+                    System.out.println("RG já existente no cadastro");
+                }
+            } else {
+                String nome;
+                do{
+                    nome = Console.scanString("Nome: ");
+                }while(!valida.validaNome(nome));
+                String telefone;
+                do{
+                    telefone = Console.scanString("Telefone: ");
+                }while(!valida.validaTelefone(telefone));
+                lista.atualizar(new Cliente(id, nome, rg, telefone));
+                System.out.println("Cliente atualizado com sucesso.");
+            }
+        }else {
             System.out.println("Cliente não encontrado.");
         }
+      
     }
 }

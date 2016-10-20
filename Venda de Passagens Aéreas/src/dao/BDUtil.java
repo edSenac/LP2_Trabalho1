@@ -14,7 +14,7 @@ public class BDUtil {
     private final static String BD = "lp2_passagens";
     private final static String URL = "jdbc:postgresql://"+HOST+":"+PORT+"/"+BD;
     private final static String USUARIO = "postgres";
-    private final static String SENHA = "root";
+    private final static String SENHA = "123456";
     
     public static Connection getConnection(){
         Connection conexao = null;

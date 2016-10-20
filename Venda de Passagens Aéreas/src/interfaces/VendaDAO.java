@@ -5,7 +5,7 @@
  */
 package interfaces;
 
-import Model.Venda;
+import model.Venda;
 
 /**
  *
