@@ -2,18 +2,18 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.2.4
--- Dumped by pg_dump version 9.2.4
--- Started on 2016-10-13 09:50:57
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
+SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
--- TOC entry 176 (class 3079 OID 11727)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -21,8 +21,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 1967 (class 0 OID 0)
--- Dependencies: 176
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -36,8 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 171 (class 1259 OID 75088)
--- Name: aviao; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: aviao; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE aviao (
@@ -47,10 +44,9 @@ CREATE TABLE aviao (
 );
 
 
-ALTER TABLE public.aviao OWNER TO postgres;
+ALTER TABLE aviao OWNER TO postgres;
 
 --
--- TOC entry 170 (class 1259 OID 75086)
 -- Name: aviao_id_aviao_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -62,11 +58,9 @@ CREATE SEQUENCE aviao_id_aviao_seq
     CACHE 1;
 
 
-ALTER TABLE public.aviao_id_aviao_seq OWNER TO postgres;
+ALTER TABLE aviao_id_aviao_seq OWNER TO postgres;
 
 --
--- TOC entry 1968 (class 0 OID 0)
--- Dependencies: 170
 -- Name: aviao_id_aviao_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -74,8 +68,7 @@ ALTER SEQUENCE aviao_id_aviao_seq OWNED BY aviao.id_aviao;
 
 
 --
--- TOC entry 169 (class 1259 OID 75079)
--- Name: cliente; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: cliente; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE cliente (
@@ -86,10 +79,9 @@ CREATE TABLE cliente (
 );
 
 
-ALTER TABLE public.cliente OWNER TO postgres;
+ALTER TABLE cliente OWNER TO postgres;
 
 --
--- TOC entry 168 (class 1259 OID 75077)
 -- Name: cliente_id_cliente_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -101,11 +93,9 @@ CREATE SEQUENCE cliente_id_cliente_seq
     CACHE 1;
 
 
-ALTER TABLE public.cliente_id_cliente_seq OWNER TO postgres;
+ALTER TABLE cliente_id_cliente_seq OWNER TO postgres;
 
 --
--- TOC entry 1969 (class 0 OID 0)
--- Dependencies: 168
 -- Name: cliente_id_cliente_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -113,8 +103,7 @@ ALTER SEQUENCE cliente_id_cliente_seq OWNED BY cliente.id_cliente;
 
 
 --
--- TOC entry 175 (class 1259 OID 75106)
--- Name: venda; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: venda; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE venda (
@@ -125,10 +114,9 @@ CREATE TABLE venda (
 );
 
 
-ALTER TABLE public.venda OWNER TO postgres;
+ALTER TABLE venda OWNER TO postgres;
 
 --
--- TOC entry 174 (class 1259 OID 75104)
 -- Name: venda_id_venda_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -140,11 +128,9 @@ CREATE SEQUENCE venda_id_venda_seq
     CACHE 1;
 
 
-ALTER TABLE public.venda_id_venda_seq OWNER TO postgres;
+ALTER TABLE venda_id_venda_seq OWNER TO postgres;
 
 --
--- TOC entry 1970 (class 0 OID 0)
--- Dependencies: 174
 -- Name: venda_id_venda_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -152,8 +138,7 @@ ALTER SEQUENCE venda_id_venda_seq OWNED BY venda.id_venda;
 
 
 --
--- TOC entry 173 (class 1259 OID 75097)
--- Name: voo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: voo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE voo (
@@ -166,10 +151,9 @@ CREATE TABLE voo (
 );
 
 
-ALTER TABLE public.voo OWNER TO postgres;
+ALTER TABLE voo OWNER TO postgres;
 
 --
--- TOC entry 172 (class 1259 OID 75095)
 -- Name: voo_id_voo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -181,11 +165,9 @@ CREATE SEQUENCE voo_id_voo_seq
     CACHE 1;
 
 
-ALTER TABLE public.voo_id_voo_seq OWNER TO postgres;
+ALTER TABLE voo_id_voo_seq OWNER TO postgres;
 
 --
--- TOC entry 1971 (class 0 OID 0)
--- Dependencies: 172
 -- Name: voo_id_voo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -193,7 +175,6 @@ ALTER SEQUENCE voo_id_voo_seq OWNED BY voo.id_voo;
 
 
 --
--- TOC entry 1938 (class 2604 OID 75091)
 -- Name: id_aviao; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -201,7 +182,6 @@ ALTER TABLE ONLY aviao ALTER COLUMN id_aviao SET DEFAULT nextval('aviao_id_aviao
 
 
 --
--- TOC entry 1937 (class 2604 OID 75082)
 -- Name: id_cliente; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -209,7 +189,6 @@ ALTER TABLE ONLY cliente ALTER COLUMN id_cliente SET DEFAULT nextval('cliente_id
 
 
 --
--- TOC entry 1940 (class 2604 OID 75109)
 -- Name: id_venda; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -217,7 +196,6 @@ ALTER TABLE ONLY venda ALTER COLUMN id_venda SET DEFAULT nextval('venda_id_venda
 
 
 --
--- TOC entry 1939 (class 2604 OID 75100)
 -- Name: id_voo; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -225,84 +203,73 @@ ALTER TABLE ONLY voo ALTER COLUMN id_voo SET DEFAULT nextval('voo_id_voo_seq'::r
 
 
 --
--- TOC entry 1955 (class 0 OID 75088)
--- Dependencies: 171
 -- Data for Name: aviao; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY aviao (id_aviao, nome, assentos) FROM stdin;
+1	Aviao	200
+3	Outro aviao	300
 \.
 
 
 --
--- TOC entry 1972 (class 0 OID 0)
--- Dependencies: 170
 -- Name: aviao_id_aviao_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('aviao_id_aviao_seq', 1, false);
+SELECT pg_catalog.setval('aviao_id_aviao_seq', 3, true);
 
 
 --
--- TOC entry 1953 (class 0 OID 75079)
--- Dependencies: 169
 -- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY cliente (id_cliente, rg, nome, telefone) FROM stdin;
+1	1234567890	Cliente	519988547
 \.
 
 
 --
--- TOC entry 1973 (class 0 OID 0)
--- Dependencies: 168
 -- Name: cliente_id_cliente_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('cliente_id_cliente_seq', 1, false);
+SELECT pg_catalog.setval('cliente_id_cliente_seq', 2, true);
 
 
 --
--- TOC entry 1959 (class 0 OID 75106)
--- Dependencies: 175
 -- Data for Name: venda; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY venda (id_venda, id_cliente, id_voo, horario) FROM stdin;
+1	1	2	2016-10-19 23:40:33.65
 \.
 
 
 --
--- TOC entry 1974 (class 0 OID 0)
--- Dependencies: 174
 -- Name: venda_id_venda_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('venda_id_venda_seq', 1, false);
+SELECT pg_catalog.setval('venda_id_venda_seq', 1, true);
 
 
 --
--- TOC entry 1957 (class 0 OID 75097)
--- Dependencies: 173
 -- Data for Name: voo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY voo (id_voo, origem, destino, id_aviao, horario, lugares) FROM stdin;
+1	Brasilia	Porto Alegre	3	2016-10-20 18:00:00	300
+2	Porto Alegre	Brasilia	1	2016-10-20 00:00:00	200
 \.
 
 
 --
--- TOC entry 1975 (class 0 OID 0)
--- Dependencies: 172
 -- Name: voo_id_voo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('voo_id_voo_seq', 1, false);
+SELECT pg_catalog.setval('voo_id_voo_seq', 2, true);
 
 
 --
--- TOC entry 1944 (class 2606 OID 75111)
--- Name: aviaoPkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: aviaoPkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY aviao
@@ -310,8 +277,7 @@ ALTER TABLE ONLY aviao
 
 
 --
--- TOC entry 1942 (class 2606 OID 75113)
--- Name: clientePkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: clientePkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY cliente
@@ -319,8 +285,7 @@ ALTER TABLE ONLY cliente
 
 
 --
--- TOC entry 1948 (class 2606 OID 75150)
--- Name: pKeyVenda; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pKeyVenda; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY venda
@@ -328,8 +293,7 @@ ALTER TABLE ONLY venda
 
 
 --
--- TOC entry 1946 (class 2606 OID 75143)
--- Name: pKeyVoo; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pKeyVoo; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY voo
@@ -337,7 +301,6 @@ ALTER TABLE ONLY voo
 
 
 --
--- TOC entry 1950 (class 2606 OID 75151)
 -- Name: fkeyVendaCliente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -346,7 +309,6 @@ ALTER TABLE ONLY venda
 
 
 --
--- TOC entry 1951 (class 2606 OID 75156)
 -- Name: fkeyVendaVoo; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -355,7 +317,6 @@ ALTER TABLE ONLY venda
 
 
 --
--- TOC entry 1949 (class 2606 OID 75144)
 -- Name: fkeyVooAviao; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -364,8 +325,6 @@ ALTER TABLE ONLY voo
 
 
 --
--- TOC entry 1966 (class 0 OID 0)
--- Dependencies: 5
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
 
@@ -374,8 +333,6 @@ REVOKE ALL ON SCHEMA public FROM postgres;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
-
--- Completed on 2016-10-13 09:50:58
 
 --
 -- PostgreSQL database dump complete
