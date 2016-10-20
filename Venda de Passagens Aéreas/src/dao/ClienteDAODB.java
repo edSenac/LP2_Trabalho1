@@ -47,7 +47,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
     @Override
     public void atualizar(Cliente cliente) {
         try{
-            String sql = "UPDATE cliente SET rg=?, nome=?, telefone=? WHERE id=?";
+            String sql = "UPDATE cliente SET rg=?, nome=?, telefone=? WHERE id_cliente=?";
             conectar(sql);
             comando.setString(1, cliente.getRg());
             comando.setString(2, cliente.getNome());
@@ -67,7 +67,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
     @Override
     public void deletar(Cliente cliente) {
         try {
-            String sql = "DELETE FROM cliente WHERE id = ?";
+            String sql = "DELETE FROM cliente WHERE id_cliente = ?";
 
             conectar(sql);
             comando.setInt(1, cliente.getId());
@@ -92,7 +92,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
             ResultSet resultado = comando.executeQuery();
             
             while(resultado.next()){
-                int id = resultado.getInt("id");
+                int id = resultado.getInt("id_cliente");
                 String rg = resultado.getString("rg");
                 String nome = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
@@ -121,7 +121,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int id = resultado.getInt("id");
+                int id = resultado.getInt("id_cliente");
                 String rg = resultado.getString("rg");
                 String nome = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
@@ -143,7 +143,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
 
     @Override
     public Cliente procurarPorId(int id) {
-        String sql = "SELECT * FROM cliente WHERE id = ?";
+        String sql = "SELECT * FROM cliente WHERE id_cliente = ?";
 
         try {
             conectar(sql);
@@ -180,7 +180,7 @@ public class ClienteDAODB extends DaoBd<Cliente> implements ClienteDAO{
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                int id = resultado.getInt("id");
+                int id = resultado.getInt("id_cliente");
                 String nome = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
                 

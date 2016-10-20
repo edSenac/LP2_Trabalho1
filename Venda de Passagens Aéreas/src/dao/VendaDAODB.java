@@ -26,7 +26,7 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
     public void salvar(Venda venda){
        int id = 0;
         try{
-            String sql = "INSERT INTO venda (id_cliente, id_voo, ) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO venda (id_cliente, id_voo, horario) VALUES (?, ?, ?)";
             
             conectarObtendoId(sql);
             comando.setInt(1, venda.getCliente().getId());
@@ -54,7 +54,7 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
     @Override
     public void atualizar(Venda venda){
         try{
-            String sql = "UPDATE venda SET id_cliente=?, id_voo=?, horario=? WHERE id=?";
+            String sql = "UPDATE venda SET id_cliente=?, id_voo=?, horario=? WHERE id_venda=?";
             conectar(sql);
             comando.setInt(1, venda.getCliente().getId());
             comando.setInt(2, venda.getVoo().getId());
@@ -76,7 +76,7 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
     @Override
     public void deletar(Venda venda){
         try {
-            String sql = "DELETE FROM venda WHERE id = ?";
+            String sql = "DELETE FROM venda WHERE id_venda = ?";
 
             conectar(sql);
             comando.setInt(1, venda.getId());
@@ -101,7 +101,7 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
             ResultSet resultado = comando.executeQuery();
             
             while(resultado.next()){
-                int id = resultado.getInt("id");
+                int id = resultado.getInt("id_venda");
                 int idCliente = resultado.getInt("id_cliente");
                 int idVoo = resultado.getInt("id_voo");
                 Date horario = resultado.getTimestamp("horario");
@@ -127,7 +127,7 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
     
     @Override
     public Venda procurarPorId(int id){
-        String sql = "SELECT * FROM venda WHERE id = ?";
+        String sql = "SELECT * FROM venda WHERE id_venda = ?";
 
         try {
             conectar(sql);
@@ -159,17 +159,15 @@ public class VendaDAODB extends DaoBd<Venda> implements VendaDAO{
         return null;
     }
 
-    public boolean cadastraVenda(Cliente cliente, Voo voo) {
+    public void cadastraVenda(Cliente cliente, Voo voo) {
         int lugares = voo.getLugares();
         if(lugares > 0){
             this.salvar(new Venda(cliente, voo, new Date()));
             voo.setLugares(lugares -1);
             System.out.println("Venda cadastrada com sucesso!");
-            return true;
         }
         else{
             System.out.println("Não há mais lugares disponíveis nesse vôo!");
-            return false;
         }
     }
 }

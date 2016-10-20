@@ -19,6 +19,7 @@ public class BDUtil {
     public static Connection getConnection(){
         Connection conexao = null;
         try {
+            DriverManager.registerDriver(new org.postgresql.Driver());
             Class.forName("org.postgresql.Driver");
             conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
             

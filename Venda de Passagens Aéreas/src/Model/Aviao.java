@@ -14,23 +14,23 @@ public class Aviao {
     
     private int id;
     private String nome;
-    private int n_assentos;
+    private int assentos;
 
     /**
      * Método construtor da classe
      * 
      * @param nome String
-     * @param n_assentos int
+     * @param assentos int
      */
-    public Aviao(int id, String nome, int n_assentos) {
+    public Aviao(int id, String nome, int assentos) {
         this.id = id;
         this.nome = nome;
-        this.n_assentos = n_assentos;
+        this.assentos = assentos;
     }
     
-    public Aviao(String nome, int n_assentos){
+    public Aviao(String nome, int assentos){
         this.nome = nome;
-        this.n_assentos = n_assentos;
+        this.assentos = assentos;
     }
     
     public void setId(int codigo){
@@ -65,12 +65,12 @@ public class Aviao {
      * Getter
      * @return int número de assentos do avião
      */
-    public int getN_assentos() {
-        return n_assentos;
+    public int getAssentos() {
+        return assentos;
     }
 
-    public void setN_assentos(int n_assentos) {
-        this.n_assentos = n_assentos;
+    public void setAssentos(int assentos) {
+        this.assentos = assentos;
     }
     
 }

@@ -22,9 +22,9 @@ import java.util.InputMismatchException;
  */
 public class VendasUI {
     
-    private ClienteDAODB clientes;
-    private VooDAODB voos;
-    private VendaDAODB lista;
+    private ClienteDAODB clientes = new ClienteDAODB();
+    private VooDAODB voos = new VooDAODB();
+    private VendaDAODB lista = new VendaDAODB();
     
     public void executar(){
         int opcao = 0;
@@ -43,6 +43,10 @@ public class VendasUI {
                 case VendasMenu.OP_LISTAR:
                     mostrarVendas();
                     break;
+                case VendasMenu.OP_REMOVER:
+                    removerVenda();
+                case VendasMenu.OP_ATUALIZAR:
+                    atualizarVenda();
                 case VendasMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
                     break;
@@ -56,19 +60,17 @@ public class VendasUI {
     /**
      * Cadastra uma venda a partir de um voo e um cliente, validando pelo numero
      * de assentos disponíveis no avião
-     * @param voos
-     * @param clientes 
      */
-    public boolean cadastrarVenda(){
+    public void cadastrarVenda(){
         
         ClientesUI clientesUI = new ClientesUI();
         clientesUI.mostrarClientes();
-        String rg;
+        int id;
         do{
-            rg = Console.scanString("RG: ");
-        }while(clientes.procurarPorRg(rg) == null);
+            id = Console.scanInt("ID: ");
+        }while(clientes.procurarPorId(id) == null);
         
-        Cliente cliente = clientes.procurarPorRg(rg);
+        Cliente cliente = clientes.procurarPorId(id);
         
         VoosUI voosUI = new VoosUI();
         voosUI.mostrarVoos();
@@ -79,7 +81,7 @@ public class VendasUI {
         
         Voo voo = voos.procurarPorId(codigo);
         
-        return lista.cadastraVenda(cliente, voo);
+        lista.cadastraVenda(cliente, voo);
         
     }
     
@@ -102,5 +104,43 @@ public class VendasUI {
             }
          
         }
+    }
+
+    private void removerVenda() {
+        this.mostrarVendas();
+        int id = Console.scanInt("Digite o id da venda que quer remover: ");
+        Venda venda = lista.procurarPorId(id);
+        if(venda != null) {
+            lista.deletar(venda);
+            System.out.println("Voo removido com sucesso.");
+        } else {
+            System.out.println("Voo não encontrado.");
+        }    
+    }
+
+    private void atualizarVenda() {
+        this.mostrarVendas();
+        int id = Console.scanInt("Digite o id da venda que quer atualizar: ");
+        Venda venda = lista.procurarPorId(id);
+        
+        ClientesUI clientesUI = new ClientesUI();
+        clientesUI.mostrarClientes();
+        int id_cliente;
+        do{
+            id_cliente = Console.scanInt("ID: ");
+        }while(clientes.procurarPorId(id_cliente) == null);
+        
+        Cliente cliente = clientes.procurarPorId(id);
+        
+        VoosUI voosUI = new VoosUI();
+        voosUI.mostrarVoos();
+        int id_voo;
+        do{
+            id_voo = Console.scanInt("ID: ");
+        }while(voos.procurarPorId(id_voo) == null);
+        
+        Voo voo = voos.procurarPorId(id_voo);
+        
+        lista.atualizar(new Venda(id, cliente, voo, venda.getHorario_compra()));
     }
 }

@@ -9,10 +9,7 @@ import Model.Aviao;
 import Model.Cliente;
 import Model.Venda;
 import Model.Voo;
-import Repositorio.RepositorioAvioes;
-import Repositorio.RepositorioClientes;
-import Repositorio.RepositorioVendas;
-import Repositorio.RepositorioVoos;
+import dao.*;
 import Menu.RelatoriosMenu;
 import java.util.InputMismatchException;
 import util.Console;
@@ -23,10 +20,10 @@ import util.Validacao;
  * @author Eduardo
  */
 public class RelatoriosUI {
-    private RepositorioAvioes avioes;
-    private RepositorioClientes clientes;
-    private RepositorioVendas vendas;
-    private RepositorioVoos voos;
+    private AviaoDAODB avioes;
+    private ClienteDAODB clientes;
+    private VendaDAODB vendas;
+    private VooDAODB voos;
     private Validacao valida = new Validacao();
     
     /*
@@ -67,23 +64,16 @@ public class RelatoriosUI {
 
             }
         } while (opcao != RelatoriosMenu.OP_VOLTAR);
-    }    
-
-    public RelatoriosUI(RepositorioAvioes avioes, RepositorioClientes clientes, RepositorioVendas vendas, RepositorioVoos voos) {
-        this.avioes = avioes;
-        this.clientes = clientes;
-        this.vendas = vendas;
-        this.voos = voos;
     }
     
     public void porCliente(){
     // para cada venda, se o cliente tem o rg == rg, mostra venda
-        ClientesUI clientesUI = new ClientesUI(clientes);
+        ClientesUI clientesUI = new ClientesUI();
         clientesUI.mostrarClientes();
-        String rg;
+        int id;
         do{
-           rg = Console.scanString("RG: ");
-        }while(!valida.validaRg(rg));
+           id = Console.scanInt("ID: ");
+        }while(clientes.procurarPorId(id) == null);
         
         //print cabecalho
         System.out.println("-----------------------------\n");
@@ -91,10 +81,10 @@ public class RelatoriosUI {
         System.out.println(String.format("%-20s", "CODIGO VOO") + "\t"
                 + String.format("%-20s", "|HORARIO VENDA"));
         boolean encontrouVendas = false;
-        for (Venda venda : vendas.getListaVendas()){
-            if(venda.getCliente().getRg().equals(rg)){
+        for (Venda venda : vendas.listar()){
+            if(venda.getCliente().getId() == id){
                 encontrouVendas = true;
-                System.out.println(String.format("%-20s", venda.getVoo().getCodigo()) + "\t"
+                System.out.println(String.format("%-20s", venda.getVoo().getId()) + "\t"
                 + String.format("%-20s", "|" + venda.getHorario_compra()));
             }
         }
@@ -107,12 +97,12 @@ public class RelatoriosUI {
     
     public void porPassageiro(){
     // para cada venda, se o cliente tem o rg == rg, mostra voo
-        ClientesUI clientesUI = new ClientesUI(clientes);
+        ClientesUI clientesUI = new ClientesUI();
         clientesUI.mostrarClientes();
-        String rg;
+        int id;
         do{
-            rg = Console.scanString("RG: ");
-        }while(!valida.validaRg(rg));
+            id = Console.scanInt("ID: ");
+        }while(clientes.procurarPorId(id) == null);
         System.out.println("-----------------------------\n");
         System.out.println(String.format("%-20s", "VOOS:\n"));
         System.out.println(String.format("%-20s", "CODIGO") + "\t"
@@ -121,12 +111,12 @@ public class RelatoriosUI {
                 + String.format("%-20s", "|DESTINO") + "\t"
                 + String.format("%-20s", "|HORARIO"));
         boolean encontrouVendas = false;
-        for (Venda venda : vendas.getListaVendas()){
-            if(venda.getCliente().getRg().equals(rg)){
+        for (Venda venda : vendas.listar()){
+            if(venda.getCliente().getId() == id){
                 encontrouVendas = true;
                 Voo voo = venda.getVoo();
                 Aviao aviao = voo.getAviao();
-                System.out.println(String.format("%-20s", voo.getCodigo()) + "\t"
+                System.out.println(String.format("%-20s", voo.getId()) + "\t"
                 + String.format("%-20s", "|" + aviao.getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"
@@ -156,10 +146,10 @@ public class RelatoriosUI {
                 + String.format("%-20s", "|DESTINO") + "\t"
                 + String.format("%-20s", "|HORARIO"));
         boolean encontrouVoos = false;
-        for (Voo voo : voos.getListaVoos()){
+        for (Voo voo : voos.listar()){
             if(voo.getOrigem().equals(origem)){
                 encontrouVoos = true;
-                System.out.println(String.format("%-20s", voo.getCodigo()) + "\t"
+                System.out.println(String.format("%-20s", voo.getId()) + "\t"
                 + String.format("%-20s", "|" + voo.getAviao().getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"
@@ -190,10 +180,10 @@ public class RelatoriosUI {
                 + String.format("%-20s", "|DESTINO") + "\t"
                 + String.format("%-20s", "|HORARIO"));
         boolean encontrouVoos = false;
-        for (Voo voo : voos.getListaVoos()){
+        for (Voo voo : voos.listar()){
             if(voo.getDestino().equals(destino)){
                 encontrouVoos = true;
-                System.out.println(String.format("%-20s", voo.getCodigo()) + "\t"
+                System.out.println(String.format("%-20s", voo.getId()) + "\t"
                 + String.format("%-20s", "|" + voo.getAviao().getNome()) + "\t"
                 + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
                 + String.format("%-20s", "|" + voo.getDestino()) + "\t"

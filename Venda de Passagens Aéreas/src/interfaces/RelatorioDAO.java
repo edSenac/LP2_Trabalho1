@@ -5,14 +5,13 @@
  */
 package interfaces;
 
-import Model.Aviao;
-import java.util.List;
-
 /**
  *
- * @author 631620220
+ * @author Eduardo
  */
-public interface AviaoDAO {
-    public List<Aviao> procurarPorNome(String name);
-    public boolean existeId(int id);
+public interface RelatorioDAO {
+    public void porCliente(int id);
+    public void porPassageiro(int id);
+    public void porOrigem(String origem);
+    public void porDestino(String destino);
 }

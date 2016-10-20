@@ -23,8 +23,8 @@ import dao.VooDAODB;
  */
 public class VoosUI {
     
-    private VooDAODB lista;
-    private AviaoDAODB avioes;
+    private VooDAODB lista = new VooDAODB();
+    private AviaoDAODB avioes = new AviaoDAODB();
     private Validacao valida = new Validacao();
     
     public void executar(){
@@ -44,6 +44,10 @@ public class VoosUI {
                 case VoosMenu.OP_LISTAR:
                     mostrarVoos();
                     break;
+                case VoosMenu.OP_REMOVER:
+                    removerVoo();
+                case VoosMenu.OP_ATUALIZAR:
+                    atualizarVoo();
                 case VoosMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
                     break;
@@ -81,12 +85,12 @@ public class VoosUI {
         int codAviao;
         do{
             codAviao = Console.scanInt("Codigo do aviao: ");
-        }while(avioes.procurarPorId(codAviao) == null);
+        }while(!avioes.existeId(codAviao));
         
         Aviao aviao = avioes.procurarPorId(codAviao);
 
         if(horario != null){
-            lista.salvar(new Voo(origem, destino, horario, aviao, aviao.getN_assentos()));
+            lista.salvar(new Voo(origem, destino, horario, aviao, aviao.getAssentos()));
             System.out.println("Voo cadastrado com sucesso!");
         }
     }
@@ -108,5 +112,62 @@ public class VoosUI {
                 + String.format("%-30s", "|" + voo.getHorario()) + "\t"
                 + String.format("%-20s", "|" + voo.getLugares()));
         }
-    } 
+    }
+
+    public void removerVoo() {
+        this.mostrarVoos();
+        int id = Console.scanInt("Digite o id do voo que quer remover: ");
+        Voo voo = lista.procurarPorId(id);
+        if(voo != null) {
+            lista.deletar(voo);
+            System.out.println("Voo removido com sucesso.");
+        } else {
+            System.out.println("Voo não encontrado.");
+        }
+    }
+
+    public void atualizarVoo() {
+        String origem;
+        String destino;
+        String horarioStr;
+        
+        this.mostrarVoos();
+        int id = Console.scanInt("Digite o id do voo que quer atualizar: ");
+        Voo voo = lista.procurarPorId(id);
+        if(voo != null) {
+            do{
+                origem = Console.scanString("Origem: ");
+            }while(!valida.validaNome(origem));
+
+            do{
+                destino = Console.scanString("Destino: ");    
+            }while(!valida.validaNome(origem));
+            horarioStr = Console.scanString("Horario (dd/mm/yyyy hh:mm): ");
+
+            Date horario = null;
+            try {
+                horario = DateUtil.stringToDateHour(horarioStr);
+            } catch (ParseException ex) {
+                System.out.println("Data ou hora no formato inválido!");
+                return;
+            }
+
+            AvioesUI avioesUI = new AvioesUI();
+            avioesUI.mostrarAvioes();
+            int codAviao;
+            do{
+                codAviao = Console.scanInt("Codigo do aviao: ");
+            }while(!avioes.existeId(codAviao));
+
+            Aviao aviao = avioes.procurarPorId(codAviao);
+
+            if(horario != null){
+                lista.atualizar(new Voo(id, origem, destino, horario, aviao, aviao.getAssentos()));
+                System.out.println("Voo atualizado com sucesso!");
+            }
+        } else {
+            System.out.println("Voo não encontrado.");
+        }
+    }
+     
 }

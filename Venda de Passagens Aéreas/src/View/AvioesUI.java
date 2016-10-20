@@ -43,7 +43,7 @@ public class AvioesUI {
                     mostrarAvioes();
                     break;
                 case AvioesMenu.OP_REMOVER:
-                    deletarAviao();
+                    removerAviao();
                 case AvioesMenu.OP_VOLTAR:
                     System.out.println("Retornando ao menu principal..");
                     break;
@@ -63,7 +63,7 @@ public class AvioesUI {
         do{
             nome = Console.scanString("Nome: ");
         }while(!valida.validaNome(nome));
-        if(lista.procurarPorNome(nome) != null){
+        if(!lista.procurarPorNome(nome).isEmpty()){
             System.out.println("Aviao " + nome + " já cadastrado!");
         }else{
             int n_assentos;
@@ -87,11 +87,11 @@ public class AvioesUI {
         for (Aviao aviao : lista.listar()) {
             System.out.println(String.format("%-20s", aviao.getId()) + "\t"
                 + String.format("%-20s", "|" + aviao.getNome()) + "\t"
-                + String.format("%-20s", "|" + aviao.getN_assentos()) + "\t");
+                + String.format("%-20s", "|" + aviao.getAssentos()) + "\t");
         }
     }
 
-    private void deletarAviao() {
+    private void removerAviao() {
         this.mostrarAvioes();
         int id = Console.scanInt("Digite o id do avião que quer remover: ");
         Aviao aviao = lista.procurarPorId(id);

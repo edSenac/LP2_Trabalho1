@@ -55,7 +55,7 @@ public class VooDAODB extends DaoBd<Voo> implements VooDAO{
     @Override
     public void deletar(Voo voo) {
         try {
-            String sql = "DELETE FROM voo WHERE id = ?";
+            String sql = "DELETE FROM voo WHERE id_voo = ?";
 
             conectar(sql);
             comando.setInt(1, voo.getId());
@@ -72,7 +72,7 @@ public class VooDAODB extends DaoBd<Voo> implements VooDAO{
     @Override
     public void atualizar(Voo voo) {
         try{
-            String sql = "UPDATE voo SET origem=?, destino=?, horario=?, id_aviao=?, lugares=? WHERE id=?";
+            String sql = "UPDATE voo SET origem=?, destino=?, horario=?, id_aviao=?, lugares=? WHERE id_voo=?";
             conectar(sql);
             comando.setString(1, voo.getOrigem());
             comando.setString(2, voo.getDestino());
@@ -80,10 +80,11 @@ public class VooDAODB extends DaoBd<Voo> implements VooDAO{
             comando.setTimestamp(3, timestamp);
             comando.setInt(4, voo.getAviao().getId());
             comando.setInt(5, voo.getLugares());
+            comando.setInt(6, voo.getId());
             comando.executeUpdate();
             
         }catch(SQLException ex){
-            System.err.println("Erro de Sistema - Problema ao atualizar paciente no Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao atualizar Banco de Dados!");
             throw new BDException(ex);
         }finally{
             fecharConexao();
@@ -101,7 +102,7 @@ public class VooDAODB extends DaoBd<Voo> implements VooDAO{
             ResultSet resultado = comando.executeQuery();
             
             while(resultado.next()){
-                int id = resultado.getInt("id");
+                int id = resultado.getInt("id_voo");
                 String origem = resultado.getString("origem");
                 String destino = resultado.getString("destino");
                 Date horario = resultado.getTimestamp("horario");
@@ -125,7 +126,7 @@ public class VooDAODB extends DaoBd<Voo> implements VooDAO{
 
     @Override
     public Voo procurarPorId(int id) {
-        String sql = "SELECT * FROM aviao WHERE id = ?";
+        String sql = "SELECT * FROM voo WHERE id_voo = ?";
 
         try {
             conectar(sql);
