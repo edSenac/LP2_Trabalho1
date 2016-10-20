@@ -48,7 +48,7 @@ public class RelatorioDAODB implements RelatorioDAO{
 
     }
     @Override
-    public void porCliente(int id) {
+    public String porCliente(int id) {
         String sql = "SELECT * FROM venda "
                 + "JOIN cliente USING(id_cliente) "
                 + "WHERE id_cliente = ?";
@@ -63,18 +63,12 @@ public class RelatorioDAODB implements RelatorioDAO{
             while(resultado.next()){
                 String nomeCliente = resultado.getString("nome");
                 int idVoo = resultado.getInt("id_voo");
+                int idVenda = resultado.getInt("id_venda");
                 Date horario = resultado.getTimestamp("horario");
-                /*
-                ClienteDAODB clienteDb = new ClienteDAODB();
-                Cliente cliente = clienteDb.procurarPorId(idCliente);
                 
-                VooDAODB vooDb = new VooDAODB();
-                Voo voo = vooDb.procurarPorId(idVoo);
                 
-                Venda venda = new Venda(id, cliente, voo, horario);
-                
-                listaVendas.add(venda);*/
             }
+            return null;
         }catch(SQLException ex){
             System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
             throw new BDException(ex);
@@ -84,7 +78,7 @@ public class RelatorioDAODB implements RelatorioDAO{
     }
 
     @Override
-    public void porPassageiro(int id) {
+    public String porPassageiro(int id) {
          String sql = "SELECT * FROM venda "
                 + "JOIN cliente USING(id_cliente) "
                 + "JOIN voo USING(id_voo) "
@@ -118,10 +112,11 @@ public class RelatorioDAODB implements RelatorioDAO{
         }finally{
             fecharConexao();
         }
+        return null;
     }
 
     @Override
-    public void porOrigem(String origem) {
+    public String porOrigem(String origem) {
          String sql = "SELECT * FROM voo "
                 + "JOIN aviao USING(id_aviao) "
                 + "WHERE origem = ?";
@@ -154,10 +149,11 @@ public class RelatorioDAODB implements RelatorioDAO{
         }finally{
             fecharConexao();
         }
+        return null;
     }
 
     @Override
-    public void porDestino(String destino) {
+    public String porDestino(String destino) {
         String sql = "SELECT * FROM voo "
                 + "JOIN aviao USING(id_aviao) "
                 + "WHERE destino = ?";
@@ -190,6 +186,7 @@ public class RelatorioDAODB implements RelatorioDAO{
         }finally{
             fecharConexao();
         }
+        return null;
     }
 
 

@@ -24,7 +24,9 @@ public class RelatoriosUI {
     private ClienteDAODB clientes;
     private VendaDAODB vendas;
     private VooDAODB voos;
+    private RelatorioDAODB lista = new RelatorioDAODB();
     private Validacao valida = new Validacao();
+    private String relatorio;
     
     /*
     
@@ -74,23 +76,19 @@ public class RelatoriosUI {
         do{
            id = Console.scanInt("ID: ");
         }while(clientes.procurarPorId(id) == null);
-        
+        relatorio = lista.porCliente(id);
         //print cabecalho
         System.out.println("-----------------------------\n");
-        System.out.println(String.format("%-20s", "VENDAS:\n"));
-        System.out.println(String.format("%-20s", "CODIGO VOO") + "\t"
-                + String.format("%-20s", "|HORARIO VENDA"));
-        boolean encontrouVendas = false;
-        for (Venda venda : vendas.listar()){
-            if(venda.getCliente().getId() == id){
-                encontrouVendas = true;
-                System.out.println(String.format("%-20s", venda.getVoo().getId()) + "\t"
-                + String.format("%-20s", "|" + venda.getHorario_compra()));
-            }
-        }
-        if(!encontrouVendas){
+            System.out.println(String.format("%-20s", "NOME") + "\t"
+                + String.format("%-20s", "|ID VOO") + "\t"
+                + String.format("%-20s", "|ID VENDA") + "\t"
+                + String.format("%-20s", "|HORARIO VENDA")
+            );
+        if(relatorio.isEmpty()){
             System.out.println(String.format("%-20s", "-----") +"\t"
                 + String.format("%-20s", "-----"));
+        }else{
+            System.out.println(relatorio);
         }
         
     }

@@ -100,7 +100,7 @@ public class ClientesUI {
         String continua = "n";
         do{
             continua = Console.scanString("Deseja prosseguir? (S/N): ").toLowerCase();
-        }while(continua.equals("s") || continua.equals("n"));
+        }while(!(continua.equals("s") || continua.equals("n")));
         if(continua.equals("s")){
             this.mostrarClientes();
             int id = Console.scanInt("Digite o id do cliente que quer remover: ");

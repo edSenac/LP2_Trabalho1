@@ -102,7 +102,7 @@ public class AvioesUI {
         String continua = "n";
         do{
             continua = Console.scanString("Deseja prosseguir? (S/N): ").toLowerCase();
-        }while(continua.equals("s") || continua.equals("n"));
+        }while(!(continua.equals("s") || continua.equals("n"))2);
         if(continua.equals("s")){
             this.mostrarAvioes();
             int id = Console.scanInt("Digite o id do avião que quer remover: ");

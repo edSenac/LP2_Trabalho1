@@ -10,8 +10,8 @@ package interfaces;
  * @author Eduardo
  */
 public interface RelatorioDAO {
-    public void porCliente(int id);
-    public void porPassageiro(int id);
-    public void porOrigem(String origem);
-    public void porDestino(String destino);
+    public String porCliente(int id);
+    public String porPassageiro(int id);
+    public String porOrigem(String origem);
+    public String porDestino(String destino);
 }
