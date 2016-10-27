@@ -20,7 +20,7 @@ import model.Cliente;
 public class RelatorioDAODB implements RelatorioDAO{
     protected Connection conexao;
     protected PreparedStatement comando;
-
+    
     public Connection conectar(String sql) throws SQLException {
         conexao = BDUtil.getConnection();
         comando = conexao.prepareStatement(sql);
@@ -52,7 +52,10 @@ public class RelatorioDAODB implements RelatorioDAO{
         String sql = "SELECT * FROM venda "
                 + "JOIN cliente USING(id_cliente) "
                 + "WHERE id_cliente = ?";
-
+        
+        String retorno = new String();
+        ClienteDAODB cliente = new ClienteDAODB();
+        
         try{
             conectar(sql);
             
@@ -66,9 +69,12 @@ public class RelatorioDAODB implements RelatorioDAO{
                 int idVenda = resultado.getInt("id_venda");
                 Date horario = resultado.getTimestamp("horario");
                 
-                
+                retorno = String.format("%-20s", cliente.procurarPorId(id).getNome()) + "\t"
+                + String.format("%-20s", "|" + idVoo) + "\t"
+                + String.format("%-20s", "|" + idVenda) + "\t"
+                + String.format("%-20s", "|" + horario) + "\n";
             }
-            return null;
+            return retorno;
         }catch(SQLException ex){
             System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
             throw new BDException(ex);
@@ -79,11 +85,14 @@ public class RelatorioDAODB implements RelatorioDAO{
 
     @Override
     public String porPassageiro(int id) {
-         String sql = "SELECT * FROM venda "
-                + "JOIN cliente USING(id_cliente) "
+        String sql = "SELECT id_voo, aviao.nome, origem, destino, voo.horario"
+                + " FROM venda "
                 + "JOIN voo USING(id_voo) "
+                + "JOIN aviao USING (id_aviao)"
                 + "WHERE id_cliente = ?";
 
+        String retorno = new String();
+        
         try{
             conectar(sql);
             
@@ -92,35 +101,37 @@ public class RelatorioDAODB implements RelatorioDAO{
             ResultSet resultado = comando.executeQuery();
             
             while(resultado.next()){
-                String nomeCliente = resultado.getString("nome");
                 int idVoo = resultado.getInt("id_voo");
+                String nomeAviao = resultado.getString("nome");
+                String origem = resultado.getString("origem");
+                String destino = resultado.getString("destino");
                 Date horario = resultado.getTimestamp("horario");
-                /*
-                ClienteDAODB clienteDb = new ClienteDAODB();
-                Cliente cliente = clienteDb.procurarPorId(idCliente);
                 
-                VooDAODB vooDb = new VooDAODB();
-                Voo voo = vooDb.procurarPorId(idVoo);
-                
-                Venda venda = new Venda(id, cliente, voo, horario);
-                
-                listaVendas.add(venda);*/
+                retorno = String.format("%-20s", idVoo) + "\t"
+                + String.format("%-20s", "|" + nomeAviao) + "\t"
+                + String.format("%-20s", "|" + origem) + "\t"
+                + String.format("%-20s", "|" + destino) + "\t"
+                + String.format("%-20s", "|" + horario) + "\n";               
             }
+            
+            return retorno;
         }catch(SQLException ex){
             System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
             throw new BDException(ex);
         }finally{
             fecharConexao();
         }
-        return null;
     }
 
     @Override
     public String porOrigem(String origem) {
-         String sql = "SELECT * FROM voo "
+         String sql = "SELECT id_voo, nome, destino, horario"
+                + " FROM voo "
                 + "JOIN aviao USING(id_aviao) "
                 + "WHERE origem = ?";
 
+        String retorno = new String();
+         
         try{
             conectar(sql);
             
@@ -129,35 +140,34 @@ public class RelatorioDAODB implements RelatorioDAO{
             ResultSet resultado = comando.executeQuery();
             
             while(resultado.next()){
-                String nomeCliente = resultado.getString("nome");
                 int idVoo = resultado.getInt("id_voo");
+                String nomeAviao = resultado.getString("nome");
+                String destino = resultado.getString("destino");
                 Date horario = resultado.getTimestamp("horario");
-                /*
-                ClienteDAODB clienteDb = new ClienteDAODB();
-                Cliente cliente = clienteDb.procurarPorId(idCliente);
                 
-                VooDAODB vooDb = new VooDAODB();
-                Voo voo = vooDb.procurarPorId(idVoo);
-                
-                Venda venda = new Venda(id, cliente, voo, horario);
-                
-                listaVendas.add(venda);*/
+                retorno = String.format("%-20s", idVoo) + "\t"
+                + String.format("%-20s", "|" + nomeAviao) + "\t"
+                + String.format("%-20s", "|" + origem) + "\t"
+                + String.format("%-20s", "|" + destino) + "\t"
+                + String.format("%-20s", "|" + horario) + "\n";
             }
+            return retorno;
         }catch(SQLException ex){
             System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
             throw new BDException(ex);
         }finally{
             fecharConexao();
         }
-        return null;
     }
 
     @Override
     public String porDestino(String destino) {
-        String sql = "SELECT * FROM voo "
+        String sql = "SELECT id_voo, nome, origem, horario FROM voo "
                 + "JOIN aviao USING(id_aviao) "
                 + "WHERE destino = ?";
 
+        String retorno = new String();
+        
         try{
             conectar(sql);
             
@@ -166,19 +176,18 @@ public class RelatorioDAODB implements RelatorioDAO{
             ResultSet resultado = comando.executeQuery();
             
             while(resultado.next()){
-                String nomeCliente = resultado.getString("nome");
                 int idVoo = resultado.getInt("id_voo");
+                String nomeAviao = resultado.getString("nome");
+                String origem = resultado.getString("origem");
                 Date horario = resultado.getTimestamp("horario");
-                /*
-                ClienteDAODB clienteDb = new ClienteDAODB();
-                Cliente cliente = clienteDb.procurarPorId(idCliente);
                 
-                VooDAODB vooDb = new VooDAODB();
-                Voo voo = vooDb.procurarPorId(idVoo);
+                retorno = String.format("%-20s", idVoo) + "\t"
+                + String.format("%-20s", "|" + nomeAviao) + "\t"
+                + String.format("%-20s", "|" + origem) + "\t"
+                + String.format("%-20s", "|" + destino) + "\t"
+                + String.format("%-20s", "|" + horario) + "\n";
                 
-                Venda venda = new Venda(id, cliente, voo, horario);
-                
-                listaVendas.add(venda);*/
+                return retorno;
             }
         }catch(SQLException ex){
             System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");

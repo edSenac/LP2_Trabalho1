@@ -353,31 +353,57 @@ ALTER TABLE ONLY voo
     ADD CONSTRAINT "pKeyVoo" PRIMARY KEY (id_voo);
 
 
+
 --
--- TOC entry 1950 (class 2606 OID 75151)
--- Name: fkeyVendaCliente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2010 (class 1259 OID 24587)
+-- Name: fki_fKeyVendaCliente; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_fKeyVendaCliente" ON venda USING btree (id_cliente);
+
+
+--
+-- TOC entry 2011 (class 1259 OID 24581)
+-- Name: fki_fKeyVendaVoo; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_fKeyVendaVoo" ON venda USING btree (id_voo);
+
+
+--
+-- TOC entry 2014 (class 1259 OID 24593)
+-- Name: fki_fKeyVooAviao; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_fKeyVooAviao" ON voo USING btree (id_aviao);
+
+
+--
+-- TOC entry 2018 (class 2606 OID 24582)
+-- Name: fKeyVendaCliente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY venda
-    ADD CONSTRAINT "fkeyVendaCliente" FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente);
+    ADD CONSTRAINT "fKeyVendaCliente" FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente) ON DELETE CASCADE;
 
 
 --
--- TOC entry 1951 (class 2606 OID 75156)
--- Name: fkeyVendaVoo; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2017 (class 2606 OID 24576)
+-- Name: fKeyVendaVoo; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY venda
-    ADD CONSTRAINT "fkeyVendaVoo" FOREIGN KEY (id_voo) REFERENCES voo(id_voo);
+    ADD CONSTRAINT "fKeyVendaVoo" FOREIGN KEY (id_voo) REFERENCES voo(id_voo) ON DELETE CASCADE;
 
 
 --
--- TOC entry 1949 (class 2606 OID 75144)
--- Name: fkeyVooAviao; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 2019 (class 2606 OID 24588)
+-- Name: fKeyVooAviao; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY voo
-    ADD CONSTRAINT "fkeyVooAviao" FOREIGN KEY (id_aviao) REFERENCES aviao(id_aviao);
+    ADD CONSTRAINT "fKeyVooAviao" FOREIGN KEY (id_aviao) REFERENCES aviao(id_aviao) ON DELETE CASCADE;
+
 
 
 --

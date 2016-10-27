@@ -86,6 +86,8 @@ public class RelatoriosUI {
             );
         if(relatorio.isEmpty()){
             System.out.println(String.format("%-20s", "-----") +"\t"
+                + String.format("%-20s", "-----") + "\t"
+                + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----"));
         }else{
             System.out.println(relatorio);
@@ -108,25 +110,15 @@ public class RelatoriosUI {
                 + String.format("%-20s", "|ORIGEM") + "\t"
                 + String.format("%-20s", "|DESTINO") + "\t"
                 + String.format("%-20s", "|HORARIO"));
-        boolean encontrouVendas = false;
-        for (Venda venda : vendas.listar()){
-            if(venda.getCliente().getId() == id){
-                encontrouVendas = true;
-                Voo voo = venda.getVoo();
-                Aviao aviao = voo.getAviao();
-                System.out.println(String.format("%-20s", voo.getId()) + "\t"
-                + String.format("%-20s", "|" + aviao.getNome()) + "\t"
-                + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
-                + String.format("%-20s", "|" + voo.getDestino()) + "\t"
-                + String.format("%-20s", "|" + voo.getHorario()));
-            }
-        }
-        if(!encontrouVendas){
+       relatorio = lista.porPassageiro(id);
+        if(relatorio.isEmpty()){
             System.out.println(String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----"));
+        }else{
+            System.out.println(relatorio);
         }
     }
     
@@ -143,23 +135,15 @@ public class RelatoriosUI {
                 + String.format("%-20s", "|ORIGEM") + "\t"
                 + String.format("%-20s", "|DESTINO") + "\t"
                 + String.format("%-20s", "|HORARIO"));
-        boolean encontrouVoos = false;
-        for (Voo voo : voos.listar()){
-            if(voo.getOrigem().equals(origem)){
-                encontrouVoos = true;
-                System.out.println(String.format("%-20s", voo.getId()) + "\t"
-                + String.format("%-20s", "|" + voo.getAviao().getNome()) + "\t"
-                + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
-                + String.format("%-20s", "|" + voo.getDestino()) + "\t"
-                + String.format("%-20s", "|" + voo.getHorario()));
-            }
-        }
-        if(!encontrouVoos){
+        relatorio = lista.porOrigem(origem);
+        if(relatorio.isEmpty()){
             System.out.println(String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----"));
+        }else{
+            System.out.println(relatorio);
         }
         
     }
@@ -177,23 +161,17 @@ public class RelatoriosUI {
                 + String.format("%-20s", "|ORIGEM") + "\t"
                 + String.format("%-20s", "|DESTINO") + "\t"
                 + String.format("%-20s", "|HORARIO"));
-        boolean encontrouVoos = false;
-        for (Voo voo : voos.listar()){
-            if(voo.getDestino().equals(destino)){
-                encontrouVoos = true;
-                System.out.println(String.format("%-20s", voo.getId()) + "\t"
-                + String.format("%-20s", "|" + voo.getAviao().getNome()) + "\t"
-                + String.format("%-20s", "|" + voo.getOrigem()) + "\t"
-                + String.format("%-20s", "|" + voo.getDestino()) + "\t"
-                + String.format("%-20s", "|" + voo.getHorario()));
-            }
-        }
-        if(!encontrouVoos){
+        
+        relatorio = lista.porDestino(destino);
+        
+        if(relatorio.isEmpty()){
             System.out.println(String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----") + "\t"
                 + String.format("%-20s", "-----"));
+        }else{
+            System.out.println(relatorio);
         }
     }
         
